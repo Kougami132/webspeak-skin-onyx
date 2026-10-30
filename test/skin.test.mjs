@@ -224,6 +224,21 @@ test("conversational chat, prompt composer and audio dock styling", () => {
   assert.ok(css.includes('[data-ws-part="voice.screen-player.stage"]'));
 });
 
+test("avatar background preservation and homepage centering", () => {
+  const css = readFileSync("src/skin.css", "utf8");
+
+  // Avatar rules must use background-color (not background shorthand) to preserve uploaded avatars
+  const avatarBlockMatch = css.match(/\[data-ws-part="voice\.member\.avatar"\][\s\S]*?\{([\s\S]*?)\}/);
+  assert.ok(avatarBlockMatch, "Avatar selector block must exist");
+  assert.ok(avatarBlockMatch[1].includes("background-color"), "Avatar block must use background-color");
+  assert.ok(!avatarBlockMatch[1].includes("background:"), "Avatar block must not use background shorthand");
+
+  // Homepage marketing suppression and centering
+  assert.ok(css.includes(".join-copy"));
+  assert.ok(css.includes(".join-content"));
+  assert.ok(css.includes(".join-card"));
+});
+
 test("modals, persistent workspace disconnect capsule, and reduced motion styling", () => {
   const css = readFileSync("src/skin.css", "utf8");
 

@@ -9,6 +9,7 @@
 
   /* OpenAI Charcoal Palette */
   --skin-onyx-bg: #171717;
+  --skin-onyx-sidebar-bg: #171717;
   --skin-onyx-surface: #212121;
   --skin-onyx-surface-elevated: #2f2f2f;
   --skin-onyx-surface-active: #383838;
@@ -26,7 +27,7 @@
   --skin-onyx-accent-hover: #1a7f64;
   --skin-onyx-accent-glow: rgba(16, 163, 127, 0.28);
   --skin-onyx-danger: #ef4444;
-  --skin-onyx-danger-bg: rgba(239, 68, 68, 0.12);
+  --skin-onyx-danger-bg: rgba(239, 68, 68, 0.15);
   --skin-onyx-warning: #f59e0b;
 
   /* Primary Button (White on Black) */
@@ -37,11 +38,15 @@
   /* Geometry & Elevation */
   --skin-onyx-radius-sm: 6px;
   --skin-onyx-radius-md: 10px;
-  --skin-onyx-radius-lg: 14px;
+  --skin-onyx-radius-lg: 16px;
   --skin-onyx-radius-pill: 9999px;
-  --skin-onyx-shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
-  --skin-onyx-shadow-elevated: 0 18px 48px rgba(0, 0, 0, 0.55);
+  --skin-onyx-shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --skin-onyx-shadow-elevated: 0 16px 48px rgba(0, 0, 0, 0.55);
 }
+
+/* ==========================================================================
+   0. Global Reset & Scrollbars
+   ========================================================================== */
 
 :root,
 :root body,
@@ -116,362 +121,436 @@
   display: none !important;
 }
 
-/* ==========================================================================
-   2. Homepage Layout & Components (Login / Connect Screen)
-   ========================================================================== */
-
-:root [data-ws-part="home"] {
-  background-color: var(--skin-onyx-bg) !important;
-  color: var(--skin-onyx-text) !important;
+/* Remove default anime/gaming illustrations in Voice Stage and Member Panel */
+:root [data-ws-part="voice.activity.artwork"],
+:root .voice-activity-artwork {
+  display: none !important;
 }
 
-:root [data-ws-part="home.header"] {
-  min-height: 64px;
-  background: var(--skin-onyx-bg);
-  border-bottom: 1px solid var(--skin-onyx-border);
+:root [data-ws-part="voice.member-panel"]::before {
+  display: none !important;
+  background: none !important;
+}
+
+/* Remove oversized default gaming gradient banner in voice room */
+:root .room-hero {
+  display: none !important;
+}
+
+/* ==========================================================================
+   2. Avatar Image Display & Uniform Fallback Fix
+   ========================================================================== */
+
+/*
+   CRITICAL BUG FIX:
+   Never use "background: ... !important;" on avatars!
+   "background" resets background-image to none, which blocked other users' uploaded avatars.
+   We set background-color fallback to #2f2f2f so real avatars (via inline backgroundImage)
+   render properly on top of it, while users without avatars get a clean dark circle.
+*/
+:root [data-ws-part="voice.member.avatar"],
+:root [data-ws-part="voice.member-row.avatar"],
+:root [data-ws-part="voice.channel-tree.avatar"],
+:root [data-ws-part="voice.chat.message-avatar"],
+:root [data-ws-part="voice.screen-player.viewer-avatar"],
+:root [data-ws-part="voice.favorite-servers.avatar"],
+:root .voice-avatar,
+:root .member-avatar,
+:root .message-avatar,
+:root .favorite-server-avatar,
+:root .ws-voice-channel-member-avatar {
+  border-radius: 50% !important;
+  background-color: var(--skin-onyx-surface-elevated);
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   3. Homepage Redesign: Centered OpenAI Auth / Session Start
+   ========================================================================== */
+
+:root [data-ws-part="home"],
+:root .join-page {
+  background-color: var(--skin-onyx-bg) !important;
+  color: var(--skin-onyx-text) !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+:root [data-ws-part="home.header"],
+:root .join-header {
+  min-height: 60px !important;
+  background: transparent !important;
+  border-bottom: 1px solid var(--skin-onyx-border) !important;
+  padding: 0 24px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
 }
 
 :root [data-ws-part="home.brand"] strong {
-  color: var(--skin-onyx-text);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  color: var(--skin-onyx-text) !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  letter-spacing: -0.02em !important;
 }
 
 :root [data-ws-part="home.brand"] small {
-  color: var(--skin-onyx-text-subtle);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  color: var(--skin-onyx-text-subtle) !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
 }
 
 :root [data-ws-part="home.gateway-status"] {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-pill);
-  padding: 5px 12px;
-  font-size: 11px;
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-pill) !important;
+  padding: 5px 12px !important;
+  font-size: 11px !important;
 }
 
 :root [data-ws-part="home.gateway-status"] .tiny-dot {
-  background: var(--skin-onyx-accent);
-  box-shadow: 0 0 0 3px var(--skin-onyx-accent-glow);
+  background: var(--skin-onyx-accent) !important;
+  box-shadow: 0 0 0 3px var(--skin-onyx-accent-glow) !important;
 }
 
 :root .guide-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  padding: 0 11px;
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  min-height: 32px !important;
+  padding: 0 12px !important;
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: all 0.16s ease !important;
 }
 
 :root .guide-button:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-elevated);
-  border-color: var(--skin-onyx-border-hover);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
 }
 
 /* Retained Admin Link in Homepage Social Links */
 :root [data-ws-part="home.social-links"] {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
 }
 
 :root [data-ws-part="home.social-links"] a[href="/admin"] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--skin-onyx-radius-sm);
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  color: var(--skin-onyx-text-muted);
-  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  color: var(--skin-onyx-text-muted) !important;
+  transition: all 0.16s ease !important;
 }
 
 :root [data-ws-part="home.social-links"] a[href="/admin"]:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-elevated);
-  border-color: var(--skin-onyx-border-hover);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
 }
 
-/* Homepage Hero */
-:root [data-ws-part="home.hero.eyebrow"] {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/*
+   HIDE WebRTC marketing promises and feature grids from the homepage.
+   This transforms the landing page into a clean, modern, centered login session.
+*/
+:root [data-ws-part="home.hero"],
+:root .join-copy {
+  display: none !important;
 }
 
-:root [data-ws-part="home.hero.title"] {
-  color: var(--skin-onyx-text);
-  font-size: clamp(34px, 4.4vw, 54px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.12;
-}
-
-:root [data-ws-part="home.hero.title"] em {
-  color: var(--skin-onyx-accent);
-  font-style: normal;
-  text-shadow: none;
-}
-
-:root [data-ws-part="home.hero.description"] {
-  color: var(--skin-onyx-text-muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-:root [data-ws-part="home.feature"] {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-md);
-  padding: 14px 16px;
-  transition: border-color 0.16s ease, background 0.16s ease;
-}
-
-:root [data-ws-part="home.feature"]:hover {
-  border-color: var(--skin-onyx-border-hover);
-  background: var(--skin-onyx-surface-elevated);
-}
-
-:root [data-ws-part="home.feature"] b {
-  color: var(--skin-onyx-text);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-:root [data-ws-part="home.feature"] small {
-  color: var(--skin-onyx-text-muted);
-  font-size: 12px;
-}
-
-:root [data-ws-part="home.feature"] > span:first-child {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  color: var(--skin-onyx-accent);
-}
-
+:root [data-ws-part="home.hero.eyebrow"],
+:root [data-ws-part="home.hero.title"],
+:root [data-ws-part="home.hero.description"],
+:root [data-ws-part="home.feature"],
 :root [data-ws-part="home.visitors"] {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-pill);
+  display: none !important;
 }
 
-:root [data-ws-part="home.visitors.label"],
-:root [data-ws-part="home.visitors.total"] {
-  color: var(--skin-onyx-text);
-  font-weight: 600;
+/* Center the Connection Form */
+:root [data-ws-part="home.content"],
+:root .join-content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: calc(100vh - 140px) !important;
+  width: 100% !important;
+  max-width: 460px !important;
+  margin: 0 auto !important;
+  padding: 32px 16px !important;
+  box-sizing: border-box !important;
 }
 
-/* Homepage Connection Card */
-:root [data-ws-part="home.join-card"] {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-lg);
-  box-shadow: var(--skin-onyx-shadow-card);
-  padding: 32px 28px;
+/* Centered OpenAI Auth Card */
+:root [data-ws-part="home.join-card"],
+:root .join-card {
+  width: 100% !important;
+  max-width: 440px !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-lg) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  padding: 36px 32px !important;
+  box-sizing: border-box !important;
 }
 
-:root [data-ws-part="home.join-title"] {
-  color: var(--skin-onyx-text);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+:root [data-ws-part="home.join-title"],
+:root .join-card h2 {
+  color: var(--skin-onyx-text) !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.025em !important;
+  text-align: center !important;
+  margin: 0 0 6px !important;
 }
 
-:root [data-ws-part="home.join-description"] {
-  color: var(--skin-onyx-text-muted);
-  font-size: 13px;
+:root [data-ws-part="home.join-description"],
+:root .card-lead {
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 13px !important;
+  text-align: center !important;
+  margin: 0 0 24px !important;
 }
 
-:root [data-ws-part="home.field-label"] {
-  color: var(--skin-onyx-text);
-  font-size: 12px;
-  font-weight: 600;
+:root [data-ws-part="home.field-label"],
+:root .field-label {
+  color: var(--skin-onyx-text) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-bottom: 6px !important;
 }
 
 :root [data-ws-part="home.field-label"] span {
-  color: var(--skin-onyx-text-subtle);
-  font-weight: 400;
+  color: var(--skin-onyx-text-subtle) !important;
+  font-weight: 400 !important;
 }
 
-:root [data-ws-part="home.field"] {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
-  color: var(--skin-onyx-text);
-  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+:root [data-ws-part="home.field"],
+:root .field-wrap {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  color: var(--skin-onyx-text) !important;
+  min-height: 44px !important;
+  padding: 0 12px !important;
+  transition: all 0.16s ease !important;
 }
 
-:root [data-ws-part="home.field"]:focus-within {
-  border-color: var(--skin-onyx-border-hover);
-  box-shadow: 0 0 0 1px var(--skin-onyx-border-hover);
+:root [data-ws-part="home.field"]:focus-within,
+:root .field-wrap:focus-within {
+  border-color: var(--skin-onyx-border-hover) !important;
+  box-shadow: 0 0 0 1px var(--skin-onyx-border-hover) !important;
 }
 
-:root [data-ws-part="home.field"] input {
-  color: var(--skin-onyx-text);
-  background: transparent;
-  font-size: 14px;
+:root [data-ws-part="home.field"] input,
+:root .field-wrap input {
+  color: var(--skin-onyx-text) !important;
+  background: transparent !important;
+  font-size: 14px !important;
 }
 
-:root [data-ws-part="home.field"] input::placeholder {
-  color: var(--skin-onyx-text-subtle);
+:root [data-ws-part="home.field"] input::placeholder,
+:root .field-wrap input::placeholder {
+  color: var(--skin-onyx-text-subtle) !important;
 }
 
-/* Connect / Submit Primary Button (White on Black) */
-:root [data-ws-part="home.connect"] {
+/* Connect / Submit Primary Button (Signature Solid White Button) */
+:root [data-ws-part="home.connect"],
+:root .connect-button {
   background: var(--skin-onyx-primary-btn) !important;
   color: var(--skin-onyx-primary-btn-text) !important;
   border: none !important;
-  border-radius: var(--skin-onyx-radius-sm);
-  min-height: 44px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: background 0.16s ease, transform 0.16s ease;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  min-height: 46px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25) !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-top: 18px !important;
+  transition: background 0.16s ease, transform 0.16s ease !important;
 }
 
-:root [data-ws-part="home.connect"]:hover:not(:disabled) {
+:root [data-ws-part="home.connect"]:hover:not(:disabled),
+:root .connect-button:hover:not(:disabled) {
   background: var(--skin-onyx-primary-btn-hover) !important;
-  transform: translateY(-1px);
+  transform: translateY(-1px) !important;
 }
 
-:root [data-ws-part="home.connect"]:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
+:root [data-ws-part="home.connect"]:disabled,
+:root .connect-button:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
 }
 
 :root .cancel-connect-button {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  color: var(--skin-onyx-text-muted);
-  border-radius: var(--skin-onyx-radius-sm);
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  color: var(--skin-onyx-text-muted) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  min-height: 42px !important;
+  margin-top: 8px !important;
+  width: 100% !important;
 }
 
 :root .cancel-connect-button:hover {
-  background: var(--skin-onyx-surface-active);
-  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-active) !important;
+  color: var(--skin-onyx-text) !important;
 }
 
 /* Server History / Quick Servers */
-:root [data-ws-part="home.server-history.group"] > span {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
+:root [data-ws-part="home.server-history.group"] > span,
+:root .local-server-group > span {
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
 }
 
-:root [data-ws-part="home.server-history.item"] {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
-  transition: border-color 0.16s ease, background 0.16s ease;
+:root [data-ws-part="home.server-history.item"],
+:root .local-server-item {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  transition: all 0.16s ease !important;
 }
 
-:root [data-ws-part="home.server-history.item"]:hover {
-  background: var(--skin-onyx-surface-active);
-  border-color: var(--skin-onyx-border-hover);
+:root [data-ws-part="home.server-history.item"]:hover,
+:root .local-server-item:hover {
+  background: var(--skin-onyx-surface-active) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
 }
 
-:root [data-ws-part="home.server-history.select"] {
-  color: var(--skin-onyx-text);
-  font-size: 13px;
-  font-weight: 500;
+:root [data-ws-part="home.server-history.select"],
+:root .local-server-select {
+  color: var(--skin-onyx-text) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
 }
 
-:root [data-ws-part="home.server-history.favorite-toggle"] {
-  color: var(--skin-onyx-text-subtle);
+:root [data-ws-part="home.server-history.favorite-toggle"],
+:root .local-server-favorite {
+  color: var(--skin-onyx-text-subtle) !important;
 }
 
 :root [data-ws-part="home.server-history.favorite-toggle"][data-ws-state="saved"],
-:root [data-ws-part="home.server-history.favorite-toggle"].active {
-  color: var(--skin-onyx-warning);
+:root [data-ws-part="home.server-history.favorite-toggle"].active,
+:root .local-server-favorite.active {
+  color: var(--skin-onyx-warning) !important;
 }
 
 /* Identity Options */
-:root [data-ws-part="home.identity"] summary {
-  color: var(--skin-onyx-text-muted);
-  font-size: 12px;
-  font-weight: 500;
+:root [data-ws-part="home.identity"] summary,
+:root .identity-options summary {
+  color: var(--skin-onyx-text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
 }
 
-:root [data-ws-part="home.identity-actions"] button {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  color: var(--skin-onyx-text-muted);
-  border-radius: var(--skin-onyx-radius-sm);
-  font-size: 12px;
-  transition: color 0.16s ease, background 0.16s ease;
+:root [data-ws-part="home.identity-actions"] button,
+:root .identity-action-button {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  color: var(--skin-onyx-text-muted) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-size: 12px !important;
+  transition: all 0.16s ease !important;
 }
 
-:root [data-ws-part="home.identity-actions"] button:hover:not(:disabled) {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-active);
-  border-color: var(--skin-onyx-border-hover);
+:root [data-ws-part="home.identity-actions"] button:hover:not(:disabled),
+:root .identity-action-button:hover:not(:disabled) {
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-active) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
 }
 
-:root [data-ws-part="home.security-note"] {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 11px;
+:root [data-ws-part="home.security-note"],
+:root .join-meta {
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 11px !important;
 }
 
-:root [data-ws-part="home.footer"] {
-  border-top: 1px solid var(--skin-onyx-border);
-  color: var(--skin-onyx-text-subtle);
-  font-size: 12px;
+:root [data-ws-part="home.footer"],
+:root .join-footer {
+  border-top: 1px solid var(--skin-onyx-border) !important;
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 12px !important;
+  width: 100% !important;
+  padding: 16px 24px !important;
+  text-align: center !important;
 }
 
 :root [data-ws-part="home.footer"] button,
-:root [data-ws-part="home.footer"] a {
-  color: var(--skin-onyx-text-muted);
+:root [data-ws-part="home.footer"] a,
+:root .join-footer a,
+:root .clear-local-button {
+  color: var(--skin-onyx-text-muted) !important;
 }
 
 :root [data-ws-part="home.footer"] button:hover,
-:root [data-ws-part="home.footer"] a:hover {
-  color: var(--skin-onyx-text);
+:root [data-ws-part="home.footer"] a:hover,
+:root .join-footer a:hover,
+:root .clear-local-button:hover {
+  color: var(--skin-onyx-text) !important;
 }
 
 /* ==========================================================================
-   3. Common Dropdowns: Skin & Language Switchers
+   4. Common Dropdowns: Skin & Language Switchers
    ========================================================================== */
 
 :root [data-ws-part="skin.trigger"],
-:root [data-ws-part="language.trigger"] {
+:root [data-ws-part="language.trigger"],
+:root .skin-trigger,
+:root .language-trigger {
   color: var(--skin-onyx-text-muted) !important;
   background: var(--skin-onyx-surface) !important;
   border: 1px solid var(--skin-onyx-border) !important;
   border-radius: var(--skin-onyx-radius-sm) !important;
   font-size: 12px !important;
   box-shadow: none !important;
-  transition: color 0.16s, background 0.16s, border-color 0.16s !important;
+  transition: all 0.16s ease !important;
 }
 
 :root [data-ws-part="skin.trigger"]:hover,
 :root [data-ws-part="language.trigger"]:hover,
+:root .skin-trigger:hover,
+:root .language-trigger:hover,
 :root [data-ws-part="skin.trigger"][data-ws-state="open"],
-:root [data-ws-part="language.trigger"][data-ws-state="open"] {
+:root [data-ws-part="language.trigger"][data-ws-state="open"],
+:root .skin-switcher.open .skin-trigger,
+:root .language-switcher.open .language-trigger {
   color: var(--skin-onyx-text) !important;
   background: var(--skin-onyx-surface-elevated) !important;
   border-color: var(--skin-onyx-border-hover) !important;
 }
 
 :root [data-ws-part="skin.menu"],
-:root [data-ws-part="language.menu"] {
+:root [data-ws-part="language.menu"],
+:root .skin-dropdown,
+:root .language-dropdown {
   background: var(--skin-onyx-surface) !important;
   border: 1px solid var(--skin-onyx-border-hover) !important;
   border-radius: var(--skin-onyx-radius-md) !important;
@@ -481,18 +560,22 @@
 }
 
 :root [data-ws-part="skin.option"],
-:root [data-ws-part="language.option"] {
+:root [data-ws-part="language.option"],
+:root .skin-option,
+:root .language-option {
   color: var(--skin-onyx-text-muted) !important;
   background: transparent !important;
   border: 1px solid transparent !important;
   border-radius: var(--skin-onyx-radius-sm) !important;
   font-size: 12px !important;
   animation: none !important;
-  transition: color 0.14s, background 0.14s !important;
+  transition: all 0.14s ease !important;
 }
 
 :root [data-ws-part="skin.option"]:hover,
 :root [data-ws-part="language.option"]:hover,
+:root .skin-option:hover,
+:root .language-option:hover,
 :root [data-ws-part="skin.option"]:focus-visible,
 :root [data-ws-part="language.option"]:focus-visible {
   color: var(--skin-onyx-text) !important;
@@ -500,7 +583,9 @@
 }
 
 :root [data-ws-part="skin.option"][aria-selected="true"],
-:root [data-ws-part="language.option"][aria-selected="true"] {
+:root [data-ws-part="language.option"][aria-selected="true"],
+:root .skin-option.selected,
+:root .language-option.selected {
   color: var(--skin-onyx-text) !important;
   background: var(--skin-onyx-surface-active) !important;
   font-weight: 600 !important;
@@ -511,263 +596,294 @@
 }
 
 /* ==========================================================================
-   4. Voice Workspace Application Shell
+   5. Voice Workspace Redesign: Modern Sidebar + Stage + Chat
    ========================================================================== */
 
 :root [data-ws-part="voice.shell"],
 :root .app-shell {
-  background: var(--skin-onyx-bg);
-  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-bg) !important;
+  color: var(--skin-onyx-text) !important;
 }
 
 :root [data-ws-part="voice.workspace"],
 :root .workspace {
-  background: var(--skin-onyx-bg);
+  background: var(--skin-onyx-surface) !important;
 }
 
 /* Top Workspace Header */
 :root [data-ws-part="voice.header"],
 :root .workspace-header {
-  min-height: 52px;
-  background: var(--skin-onyx-bg);
-  border-bottom: 1px solid var(--skin-onyx-border);
+  min-height: 52px !important;
+  background: var(--skin-onyx-surface) !important;
+  border-bottom: 1px solid var(--skin-onyx-border) !important;
+  padding: 0 20px !important;
 }
 
-:root [data-ws-part="voice.breadcrumbs"] {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 13px;
+:root [data-ws-part="voice.breadcrumbs"],
+:root .breadcrumbs {
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 13px !important;
 }
 
-:root [data-ws-part="voice.breadcrumbs"] strong {
-  color: var(--skin-onyx-text);
-  font-weight: 600;
+:root [data-ws-part="voice.breadcrumbs"] strong,
+:root .breadcrumbs strong {
+  color: var(--skin-onyx-text) !important;
+  font-weight: 600 !important;
 }
 
 :root .header-action {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
-  transition: color 0.16s, background 0.16s, border-color 0.16s;
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  transition: all 0.16s ease !important;
 }
 
 :root .header-action:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-elevated);
-  border-color: var(--skin-onyx-border-hover);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-active) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
 }
 
-/* Disconnect Button (Muted Red) */
+/* Disconnect Button (Coral Red Accent) */
 :root .disconnect-button {
   color: var(--skin-onyx-danger) !important;
   background: var(--skin-onyx-danger-bg) !important;
   border: 1px solid rgba(239, 68, 68, 0.25) !important;
   border-radius: var(--skin-onyx-radius-sm) !important;
   font-weight: 600 !important;
-  transition: background 0.16s ease, border-color 0.16s ease;
+  transition: all 0.16s ease !important;
 }
 
 :root .disconnect-button:hover {
-  background: rgba(239, 68, 68, 0.22) !important;
-  border-color: rgba(239, 68, 68, 0.4) !important;
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: rgba(239, 68, 68, 0.45) !important;
 }
 
 /* Left Server Rail */
 :root [data-ws-part="voice.favorite-servers.rail"],
 :root .favorite-server-rail {
-  background: var(--skin-onyx-bg);
-  border-right: 1px solid var(--skin-onyx-border);
+  background: var(--skin-onyx-bg) !important;
+  border-right: 1px solid var(--skin-onyx-border) !important;
+  padding: 12px 8px !important;
 }
 
 :root [data-ws-part="voice.favorite-servers.server"],
 :root .favorite-server-button,
 :root [data-ws-part="voice.favorite-servers.add"],
 :root .favorite-server-add {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-md);
-  color: var(--skin-onyx-text-muted);
-  transition: all 0.16s ease;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: 12px !important;
+  color: var(--skin-onyx-text-muted) !important;
+  transition: all 0.16s ease !important;
 }
 
 :root [data-ws-part="voice.favorite-servers.server"]:hover,
 :root .favorite-server-button:hover,
 :root [data-ws-part="voice.favorite-servers.add"]:hover,
 :root .favorite-server-add:hover {
-  background: var(--skin-onyx-surface-elevated);
-  border-color: var(--skin-onyx-border-hover);
-  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
+  color: var(--skin-onyx-text) !important;
 }
 
 :root [data-ws-part="voice.favorite-servers.server"][data-ws-state="current"],
 :root .favorite-server-button.active {
-  background: var(--skin-onyx-surface-elevated);
-  border-color: var(--skin-onyx-accent);
-  color: var(--skin-onyx-text);
-  box-shadow: 0 0 0 1px var(--skin-onyx-accent);
+  background: var(--skin-onyx-surface-elevated) !important;
+  border-color: var(--skin-onyx-accent) !important;
+  color: var(--skin-onyx-text) !important;
+  box-shadow: 0 0 0 1px var(--skin-onyx-accent) !important;
 }
 
 :root .favorite-server-button.active::before {
-  background: var(--skin-onyx-accent);
+  background: var(--skin-onyx-accent) !important;
 }
 
 :root [data-ws-part="voice.favorite-servers.tooltip"],
 :root .favorite-server-tooltip {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border-hover);
-  border-radius: var(--skin-onyx-radius-sm);
-  color: var(--skin-onyx-text);
-  box-shadow: var(--skin-onyx-shadow-elevated);
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  color: var(--skin-onyx-text) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
 }
 
-/* Left Channel & Member Panel */
+/* Left Channel & Member Panel (Sidebar) */
 :root [data-ws-part="voice.member-panel"],
 :root .member-panel {
-  background: var(--skin-onyx-bg);
-  border-right: 1px solid var(--skin-onyx-border);
-  box-shadow: none;
+  background: var(--skin-onyx-sidebar-bg) !important;
+  border-right: 1px solid var(--skin-onyx-border) !important;
+  box-shadow: none !important;
+  padding: 16px 14px !important;
 }
 
-:root [data-ws-part="voice.member-panel"]::before {
-  display: none !important;
-  background: none !important;
-}
-
-:root [data-ws-part="voice.member-panel.heading"] h2 {
-  color: var(--skin-onyx-text);
-  font-size: 15px;
-  font-weight: 700;
+:root [data-ws-part="voice.member-panel.heading"] h2,
+:root .member-panel-heading h2 {
+  color: var(--skin-onyx-text) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
 }
 
 :root .status-button {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
-  color: var(--skin-onyx-text-muted);
-  font-size: 12px;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  color: var(--skin-onyx-text-muted) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 4px 8px !important;
 }
 
 :root .status-button:hover {
-  background: var(--skin-onyx-surface-elevated);
-  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated) !important;
+  color: var(--skin-onyx-text) !important;
 }
 
 :root .status-button .status-dot {
-  background: var(--skin-onyx-accent);
+  background: var(--skin-onyx-accent) !important;
 }
 
 :root .status-button.active .status-dot {
-  background: var(--skin-onyx-warning);
+  background: var(--skin-onyx-warning) !important;
 }
 
 :root [data-ws-part="voice.member-panel.search"],
 :root .member-search {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  padding: 0 10px !important;
+  min-height: 36px !important;
+  margin: 12px 0 !important;
 }
 
 :root [data-ws-part="voice.member-panel.search"] input,
 :root .member-search input {
-  color: var(--skin-onyx-text);
-  font-size: 13px;
+  color: var(--skin-onyx-text) !important;
+  font-size: 13px !important;
 }
 
 :root [data-ws-part="voice.member-panel.search"] input::placeholder,
 :root .member-search input::placeholder {
-  color: var(--skin-onyx-text-subtle);
+  color: var(--skin-onyx-text-subtle) !important;
 }
 
 :root [data-ws-part="voice.channel-group.heading"],
 :root .member-channel-heading {
-  color: var(--skin-onyx-text-muted);
-  border-radius: var(--skin-onyx-radius-sm);
-  padding: 8px 10px;
-  font-size: 13px;
-  font-weight: 500;
-  transition: color 0.14s, background 0.14s;
+  color: var(--skin-onyx-text-muted) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  padding: 8px 10px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: all 0.14s ease !important;
 }
 
 :root [data-ws-part="voice.channel-group.heading"]:hover,
 :root .member-channel-heading:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface) !important;
 }
 
 :root [data-ws-part="voice.channel-group.heading"][data-ws-state="current"],
 :root .member-channel-group.current .member-channel-heading {
   color: var(--skin-onyx-text) !important;
   background: var(--skin-onyx-surface) !important;
-  font-weight: 600;
-  box-shadow: inset 3px 0 0 var(--skin-onyx-accent);
+  font-weight: 600 !important;
+  box-shadow: inset 3px 0 0 var(--skin-onyx-accent) !important;
 }
 
 :root [data-ws-part="voice.member-row"],
 :root .member-row {
-  border-radius: var(--skin-onyx-radius-sm);
-  padding: 6px 10px;
-  transition: background 0.14s ease;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  padding: 6px 10px !important;
+  transition: background 0.14s ease !important;
 }
 
 :root [data-ws-part="voice.member-row"]:hover,
 :root .member-row:hover {
-  background: var(--skin-onyx-surface);
+  background: var(--skin-onyx-surface) !important;
 }
 
 :root [data-ws-part="voice.member-row"][data-ws-state="speaking"],
 :root .member-row:has(.member-avatar.speaking) {
-  background: rgba(16, 163, 127, 0.08);
-}
-
-:root [data-ws-part="voice.member-row.avatar"],
-:root .member-avatar {
-  border-radius: var(--skin-onyx-radius-pill);
-  background: var(--skin-onyx-surface-elevated) !important;
-  color: #ffffff !important;
+  background: rgba(16, 163, 127, 0.08) !important;
 }
 
 :root [data-ws-part="voice.member-row.avatar"].speaking,
 :root .member-avatar.speaking {
-  box-shadow: 0 0 0 2px var(--skin-onyx-accent), 0 0 8px var(--skin-onyx-accent-glow);
+  box-shadow: 0 0 0 2px var(--skin-onyx-accent), 0 0 10px var(--skin-onyx-accent-glow) !important;
 }
 
 :root [data-ws-part="voice.member-row.copy"] strong,
 :root .member-copy strong {
-  color: var(--skin-onyx-text);
-  font-size: 13px;
+  color: var(--skin-onyx-text) !important;
+  font-size: 13px !important;
 }
 
 :root [data-ws-part="voice.member-row.copy"] span,
 :root .member-copy span {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 11px;
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 11px !important;
 }
 
-/* Main Content Stage */
+/* Main Workspace Content (Stage + Chat) */
+:root [data-ws-part="voice.content"],
+:root .workspace-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  background: var(--skin-onyx-surface) !important;
+}
+
+/* Voice Activity Stage */
 :root [data-ws-part="voice.activity"],
 :root .voice-section {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-lg);
-  box-shadow: var(--skin-onyx-shadow-card);
+  background: var(--skin-onyx-surface) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 24px 32px !important;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
-:root [data-ws-part="voice.activity.artwork"] {
-  display: none !important;
+:root [data-ws-part="voice.activity-heading"],
+:root .section-heading {
+  margin-bottom: 20px !important;
 }
 
 :root [data-ws-part="voice.activity-heading"] h2,
 :root .section-heading h2 {
-  color: var(--skin-onyx-text);
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  color: var(--skin-onyx-text) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
 }
 
 :root [data-ws-part="voice.activity-heading"] span,
 :root .section-counter {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 12px;
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Participant Grid */
+:root [data-ws-part="voice.members"],
+:root .voice-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+  gap: 16px !important;
+  margin-bottom: 24px !important;
 }
 
 /* Participant Member Cards in Voice Stage */
@@ -775,149 +891,172 @@
 :root .voice-card {
   background: var(--skin-onyx-bg) !important;
   border: 1px solid var(--skin-onyx-border) !important;
-  border-radius: var(--skin-onyx-radius-md) !important;
+  border-radius: var(--skin-onyx-radius-lg) !important;
   box-shadow: var(--skin-onyx-shadow-card) !important;
-  transition: border-color 0.16s ease, transform 0.16s ease;
+  padding: 28px 16px !important;
+  min-height: 180px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  transition: all 0.16s ease !important;
 }
 
 :root [data-ws-part="voice.member"]:hover,
 :root .voice-card:hover {
   border-color: var(--skin-onyx-border-hover) !important;
-  transform: translateY(-1px);
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45) !important;
 }
 
 :root [data-ws-part="voice.member"][data-ws-speaking="true"],
 :root .voice-card.speaking {
   border-color: var(--skin-onyx-accent) !important;
-  box-shadow: 0 0 0 1px var(--skin-onyx-accent), 0 8px 24px rgba(16, 163, 127, 0.15) !important;
+  box-shadow: 0 0 0 1px var(--skin-onyx-accent), 0 8px 28px rgba(16, 163, 127, 0.18) !important;
 }
 
+/* Stage Member Avatar (Larger Circle) */
 :root [data-ws-part="voice.member.avatar"],
 :root .voice-avatar {
-  border-radius: var(--skin-onyx-radius-pill);
-  background: var(--skin-onyx-surface-elevated) !important;
-  color: #ffffff !important;
+  width: 76px !important;
+  height: 76px !important;
+  border-radius: 50% !important;
+  font-size: 24px !important;
 }
 
 :root [data-ws-part="voice.member.avatar"].speaking,
 :root .voice-avatar.speaking {
   outline: 3px solid var(--skin-onyx-accent) !important;
   outline-offset: 3px !important;
-  box-shadow: 0 0 16px var(--skin-onyx-accent-glow) !important;
+  box-shadow: 0 0 18px var(--skin-onyx-accent-glow) !important;
 }
 
 :root [data-ws-part="voice.member.name"],
 :root .voice-card > strong {
-  color: var(--skin-onyx-text);
-  font-size: 14px;
-  font-weight: 600;
+  color: var(--skin-onyx-text) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  margin-top: 14px !important;
 }
 
 :root [data-ws-part="voice.member.status"],
 :root .voice-card > span {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 12px;
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 12px !important;
+  margin-top: 4px !important;
 }
 
 :root [data-ws-part="voice.member"][data-ws-speaking="true"] [data-ws-part="voice.member.status"],
 :root .voice-card.speaking > span {
-  color: var(--skin-onyx-accent);
+  color: var(--skin-onyx-accent) !important;
+  font-weight: 500 !important;
 }
 
 :root .voice-member-action {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
 }
 
 :root .voice-member-action:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-elevated);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
 }
 
 /* Screen Share Live Indicator Badge */
 :root [data-ws-part="voice.member.live-indicator"],
 :root .screen-share-live-indicator {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid rgba(16, 163, 127, 0.4);
-  color: var(--skin-onyx-accent);
-  border-radius: var(--skin-onyx-radius-pill);
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid rgba(16, 163, 127, 0.4) !important;
+  color: var(--skin-onyx-accent) !important;
+  border-radius: var(--skin-onyx-radius-pill) !important;
 }
 
 :root [data-ws-part="voice.member.live-indicator"]::before,
 :root .screen-share-live-indicator::before {
-  background: var(--skin-onyx-accent);
-  box-shadow: 0 0 0 3px var(--skin-onyx-accent-glow);
+  background: var(--skin-onyx-accent) !important;
+  box-shadow: 0 0 0 3px var(--skin-onyx-accent-glow) !important;
 }
 
 /* Screen Share Remote Player */
 :root [data-ws-part="voice.screen-player"] {
-  background: #000000;
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-md);
-  box-shadow: var(--skin-onyx-shadow-elevated);
+  background: #000000 !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  margin-bottom: 20px !important;
 }
 
 :root [data-ws-part="voice.screen-player.stage"],
 :root [data-ws-part="voice.screen-player.video"] {
-  background: #000000;
+  background: #000000 !important;
 }
 
 :root [data-ws-part="voice.screen-player.exit"],
 :root [data-ws-part="voice.screen-player.fullscreen"] {
-  background: rgba(33, 33, 33, 0.85);
-  border: 1px solid var(--skin-onyx-border);
-  color: var(--skin-onyx-text);
-  border-radius: var(--skin-onyx-radius-sm);
-  backdrop-filter: blur(8px);
+  background: rgba(33, 33, 33, 0.85) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  color: var(--skin-onyx-text) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
 :root [data-ws-part="voice.screen-player.exit"]:hover,
 :root [data-ws-part="voice.screen-player.fullscreen"]:hover {
-  background: var(--skin-onyx-surface-elevated);
+  background: var(--skin-onyx-surface-elevated) !important;
 }
 
 /* Chat Panel */
 :root [data-ws-part="voice.chat"],
 :root .chat-panel {
-  background: var(--skin-onyx-bg);
-  border-left: 1px solid var(--skin-onyx-border);
+  background: var(--skin-onyx-bg) !important;
+  border-left: 1px solid var(--skin-onyx-border) !important;
+  width: 360px !important;
+  flex: 0 0 360px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
 }
 
 :root [data-ws-part="voice.chat.heading"],
 :root .chat-heading {
-  border-bottom: 1px solid var(--skin-onyx-border);
+  border-bottom: 1px solid var(--skin-onyx-border) !important;
+  padding: 14px 16px !important;
 }
 
 :root [data-ws-part="voice.chat.heading"] h2,
 :root .chat-heading h2 {
-  color: var(--skin-onyx-text);
+  color: var(--skin-onyx-text) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
 }
 
 :root [data-ws-part="voice.chat.tabs"],
 :root .chat-tabs {
-  background: var(--skin-onyx-bg);
-  border-bottom: 1px solid var(--skin-onyx-border);
-  gap: 4px;
+  background: var(--skin-onyx-bg) !important;
+  border-bottom: 1px solid var(--skin-onyx-border) !important;
+  gap: 4px !important;
+  padding: 8px 12px !important;
 }
 
 :root [data-ws-part="voice.chat.tab"],
 :root .chat-tabs button {
-  color: var(--skin-onyx-text-muted);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: var(--skin-onyx-radius-sm);
-  font-size: 12px;
-  font-weight: 500;
-  padding: 6px 12px;
-  transition: all 0.14s ease;
+  color: var(--skin-onyx-text-muted) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 6px 12px !important;
+  transition: all 0.14s ease !important;
 }
 
 :root [data-ws-part="voice.chat.tab"]:hover,
 :root .chat-tabs button:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface) !important;
 }
 
 :root [data-ws-part="voice.chat.tab"][data-ws-state="active"],
@@ -925,63 +1064,78 @@
   color: var(--skin-onyx-text) !important;
   background: var(--skin-onyx-surface) !important;
   border-color: var(--skin-onyx-border) !important;
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
-/* Chat Messages */
+/* Chat Messages (Flat Conversational Thread) */
+:root [data-ws-part="voice.chat.messages"],
+:root .message-list {
+  padding: 16px !important;
+  flex: 1 1 0 !important;
+  overflow-y: auto !important;
+}
+
+:root [data-ws-part="voice.chat.message"],
+:root .message-row {
+  margin-bottom: 14px !important;
+}
+
 :root [data-ws-part="voice.chat.message-bubble"],
 :root .message-bubble {
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-md);
-  color: var(--skin-onyx-text);
-  font-size: 13px;
-  line-height: 1.5;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: 10px !important;
+  color: var(--skin-onyx-text) !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  padding: 10px 14px !important;
+  box-shadow: none !important;
 }
 
 :root [data-ws-part="voice.chat.message"][data-ws-state="mine"] [data-ws-part="voice.chat.message-bubble"],
 :root .message-row.mine .message-bubble {
-  background: var(--skin-onyx-surface-elevated);
-  border-color: var(--skin-onyx-border-hover);
-  color: #ffffff;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
+  color: #ffffff !important;
 }
 
 :root .message-meta strong {
-  color: var(--skin-onyx-text);
-  font-size: 13px;
+  color: var(--skin-onyx-text) !important;
+  font-size: 13px !important;
 }
 
 :root .message-meta time {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 11px;
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 11px !important;
 }
 
 :root [data-ws-part="voice.chat.empty"],
 :root .chat-empty {
-  color: var(--skin-onyx-text-subtle);
-  background: transparent;
+  color: var(--skin-onyx-text-subtle) !important;
+  background: transparent !important;
 }
 
 :root [data-ws-part="voice.chat.empty"] strong,
 :root .chat-empty strong {
-  color: var(--skin-onyx-text-muted);
+  color: var(--skin-onyx-text-muted) !important;
 }
 
 /* Chat Composer (ChatGPT Prompt Capsule) */
 :root [data-ws-part="voice.chat.composer"],
 :root .message-composer {
   background: var(--skin-onyx-surface) !important;
-  border: 1px solid var(--skin-onyx-border) !important;
-  border-radius: var(--skin-onyx-radius-md) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 14px !important;
   padding: 6px 8px 6px 14px !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  margin: 12px 16px 16px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.16s ease !important;
 }
 
 :root [data-ws-part="voice.chat.composer"]:focus-within,
 :root .message-composer:focus-within {
   border-color: var(--skin-onyx-border-hover) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
 }
 
 :root [data-ws-part="voice.chat.composer"] input,
@@ -1002,50 +1156,50 @@
   border-radius: var(--skin-onyx-radius-pill) !important;
   width: 32px !important;
   height: 32px !important;
-  display: grid;
-  place-items: center;
-  transition: background 0.16s ease, opacity 0.16s ease;
+  display: grid !important;
+  place-items: center !important;
+  transition: all 0.16s ease !important;
 }
 
 :root [data-ws-part="voice.chat.composer"] button:disabled,
 :root .send-button:disabled {
   opacity: 0.35 !important;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
 /* Bottom Audio Control Dock */
 :root [data-ws-part="voice.audio-dock"],
 :root .desktop-audio-dock {
-  background: var(--skin-onyx-surface) !important;
-  border: 1px solid var(--skin-onyx-border) !important;
-  border-radius: var(--skin-onyx-radius-md) !important;
-  box-shadow: var(--skin-onyx-shadow-card) !important;
-  backdrop-filter: blur(16px);
+  background: var(--skin-onyx-bg) !important;
+  border-top: 1px solid var(--skin-onyx-border) !important;
+  border-radius: 0 !important;
+  padding: 12px 14px !important;
+  box-shadow: none !important;
 }
 
 :root .desktop-audio-dock-copy strong {
-  color: var(--skin-onyx-text);
-  font-size: 12px;
+  color: var(--skin-onyx-text) !important;
+  font-size: 12px !important;
 }
 
 :root .desktop-audio-dock-copy span {
-  color: var(--skin-onyx-text-subtle);
-  font-size: 11px;
+  color: var(--skin-onyx-text-subtle) !important;
+  font-size: 11px !important;
 }
 
 :root .dock-audio-button {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
-  transition: color 0.16s, background 0.16s, border-color 0.16s;
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  transition: all 0.16s ease !important;
 }
 
 :root .dock-audio-button:hover,
 :root .dock-audio-button:focus-visible {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-active);
-  border-color: var(--skin-onyx-border-hover);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
 }
 
 :root .dock-audio-button.muted,
@@ -1056,9 +1210,9 @@
 }
 
 :root .dock-audio-button.accompaniment-toggle.active {
-  color: var(--skin-onyx-accent);
-  background: rgba(16, 163, 127, 0.15);
-  border-color: var(--skin-onyx-accent);
+  color: var(--skin-onyx-accent) !important;
+  background: rgba(16, 163, 127, 0.15) !important;
+  border-color: var(--skin-onyx-accent) !important;
 }
 
 :root [data-ws-part="voice.audio-dock.microphone-panel"],
@@ -1068,35 +1222,35 @@
   border: 1px solid var(--skin-onyx-border-hover) !important;
   border-radius: var(--skin-onyx-radius-md) !important;
   box-shadow: var(--skin-onyx-shadow-elevated) !important;
-  color: var(--skin-onyx-text);
+  color: var(--skin-onyx-text) !important;
 }
 
 :root .dock-slider-heading span {
-  color: var(--skin-onyx-text-subtle);
+  color: var(--skin-onyx-text-subtle) !important;
 }
 
 :root .dock-slider-heading strong {
-  color: var(--skin-onyx-text);
+  color: var(--skin-onyx-text) !important;
 }
 
 :root .dock-slider {
-  accent-color: var(--skin-onyx-accent);
+  accent-color: var(--skin-onyx-accent) !important;
 }
 
 /* Voice Performance Panel */
 :root [data-ws-part="voice.performance"] > button,
 :root .performance-trigger {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
 }
 
 :root [data-ws-part="voice.performance"] > button:hover,
 :root .performance-trigger:hover,
 :root .performance-trigger[aria-expanded="true"] {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-elevated);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
 }
 
 :root [data-ws-part="voice.performance.panel"],
@@ -1105,33 +1259,33 @@
   border: 1px solid var(--skin-onyx-border-hover) !important;
   border-radius: var(--skin-onyx-radius-md) !important;
   box-shadow: var(--skin-onyx-shadow-elevated) !important;
-  color: var(--skin-onyx-text);
+  color: var(--skin-onyx-text) !important;
 }
 
 :root [data-ws-part="voice.performance.metrics"] article,
 :root .voice-audio-metrics article {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
 }
 
 :root [data-ws-part="voice.performance.metrics"] strong,
 :root .voice-audio-metrics strong {
-  color: var(--skin-onyx-accent);
+  color: var(--skin-onyx-accent) !important;
 }
 
 :root [data-ws-part="voice.performance.metrics"] small,
 :root [data-ws-part="voice.performance.metrics"] span {
-  color: var(--skin-onyx-text-subtle);
+  color: var(--skin-onyx-text-subtle) !important;
 }
 
 /* ==========================================================================
-   5. Modals & Dialogs (Password, Audio Settings, Identity, Favorites)
+   6. Modals & Dialogs (Password, Audio Settings, Identity, Favorites)
    ========================================================================== */
 
 :root .modal-backdrop {
   background: rgba(0, 0, 0, 0.72) !important;
-  backdrop-filter: blur(6px) !important;
+  backdrop-filter: blur(8px) !important;
 }
 
 :root [data-ws-part="auth.password.dialog"],
@@ -1154,23 +1308,23 @@
 :root .channel-password-modal h2,
 :root .identity-import-header h2,
 :root .favorite-server-dialog-header h2 {
-  color: var(--skin-onyx-text);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  color: var(--skin-onyx-text) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
 }
 
 :root .settings-modal h3 {
-  color: var(--skin-onyx-text);
-  font-size: 15px;
-  font-weight: 600;
+  color: var(--skin-onyx-text) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
 }
 
 :root .settings-label,
 :root .favorite-server-dialog-field {
-  color: var(--skin-onyx-text-muted);
-  font-size: 12px;
-  font-weight: 600;
+  color: var(--skin-onyx-text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
 }
 
 :root .settings-select,
@@ -1214,9 +1368,9 @@
 }
 
 :root .channel-password-icon {
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  color: var(--skin-onyx-accent);
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  color: var(--skin-onyx-accent) !important;
 }
 
 :root .primary-button,
@@ -1229,8 +1383,8 @@
   border: none !important;
   border-radius: var(--skin-onyx-radius-sm) !important;
   font-weight: 600 !important;
-  cursor: pointer;
-  transition: background 0.16s ease;
+  cursor: pointer !important;
+  transition: background 0.16s ease !important;
 }
 
 :root .primary-button:hover:not(:disabled),
@@ -1245,36 +1399,36 @@
 :root [data-ws-part="auth.password.cancel"],
 :root [data-ws-part="home.identity-import.cancel"],
 :root [data-ws-part="voice.favorite-servers.dialog.cancel"] {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
-  font-weight: 500;
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-weight: 500 !important;
 }
 
 :root .text-button:hover,
 :root [data-ws-part="auth.password.cancel"]:hover,
 :root [data-ws-part="home.identity-import.cancel"]:hover,
 :root [data-ws-part="voice.favorite-servers.dialog.cancel"]:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-active);
-  border-color: var(--skin-onyx-border-hover);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-active) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
 }
 
 :root .round-icon,
 :root .qq-modal-close,
 :root .favorite-server-dialog-close {
-  color: var(--skin-onyx-text-muted);
-  background: var(--skin-onyx-surface-elevated);
-  border: 1px solid var(--skin-onyx-border);
-  border-radius: var(--skin-onyx-radius-sm);
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
 }
 
 :root .round-icon:hover,
 :root .qq-modal-close:hover,
 :root .favorite-server-dialog-close:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-active);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-active) !important;
 }
 
 /* Context Menus */
@@ -1286,24 +1440,24 @@
   border: 1px solid var(--skin-onyx-border-hover) !important;
   border-radius: var(--skin-onyx-radius-md) !important;
   box-shadow: var(--skin-onyx-shadow-elevated) !important;
-  color: var(--skin-onyx-text);
-  padding: 6px;
+  color: var(--skin-onyx-text) !important;
+  padding: 6px !important;
 }
 
 :root .member-context-menu button,
 :root .member-submenu-panel button {
-  color: var(--skin-onyx-text-muted);
-  border-radius: var(--skin-onyx-radius-sm);
+  color: var(--skin-onyx-text-muted) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
 }
 
 :root .member-context-menu button:hover,
 :root .member-submenu-panel button:hover {
-  color: var(--skin-onyx-text);
-  background: var(--skin-onyx-surface-elevated);
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
 }
 
 /* ==========================================================================
-   6. Persistent Workspace Connection Status (Workspace API v1)
+   7. Persistent Workspace Connection Status (Workspace API v1)
    ========================================================================== */
 
 :root [data-ws-part="voice.connection-status"],
@@ -1334,7 +1488,7 @@
 }
 
 /* ==========================================================================
-   7. Demo Page Support
+   8. Demo Page Support
    ========================================================================== */
 
 :root [data-ws-page="demo"],
@@ -1345,7 +1499,7 @@
 
 :root [data-ws-part="demo.header"],
 :root .demo-header {
-  border-bottom: 1px solid var(--skin-onyx-border);
+  border-bottom: 1px solid var(--skin-onyx-border) !important;
 }
 
 :root [data-ws-part="demo.channels"],
@@ -1414,7 +1568,7 @@
 }
 
 /* ==========================================================================
-   8. Motion Preference
+   9. Motion Preference
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1427,7 +1581,3 @@
     scroll-behavior: auto !important;
   }
 }
-
-
-
-
