@@ -200,4 +200,29 @@ test("voice stage, channel navigation and participant cards styling", () => {
   assert.ok(css.includes('[data-ws-part="voice.member.live-indicator"]'));
 });
 
+test("conversational chat, prompt composer and audio dock styling", () => {
+  const css = readFileSync("src/skin.css", "utf8");
+
+  // Chat panel and conversational message stream
+  assert.ok(css.includes('[data-ws-part="voice.chat"]'));
+  assert.ok(css.includes('[data-ws-part="voice.chat.heading"]'));
+  assert.ok(css.includes('[data-ws-part="voice.chat.tabs"]'));
+  assert.ok(css.includes('[data-ws-part="voice.chat.tab"]'));
+  assert.ok(css.includes('[data-ws-part="voice.chat.message-bubble"]'));
+
+  // Prompt composer
+  assert.ok(css.includes('[data-ws-part="voice.chat.composer"]'));
+  assert.ok(css.includes('.send-button'));
+
+  // Audio dock & hover panels
+  assert.ok(css.includes('[data-ws-part="voice.audio-dock"]'));
+  assert.ok(css.includes('[data-ws-part="voice.audio-dock.microphone-panel"]'));
+  assert.ok(css.includes('[data-ws-part="voice.audio-dock.output-panel"]'));
+
+  // Screen player black stage
+  assert.ok(css.includes('[data-ws-part="voice.screen-player"]'));
+  assert.ok(css.includes('[data-ws-part="voice.screen-player.stage"]'));
+});
+
+
 

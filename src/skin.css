@@ -851,4 +851,237 @@
   box-shadow: 0 0 0 3px var(--skin-onyx-accent-glow);
 }
 
+/* Screen Share Remote Player */
+:root [data-ws-part="voice.screen-player"] {
+  background: #000000;
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-md);
+  box-shadow: var(--skin-onyx-shadow-elevated);
+}
+
+:root [data-ws-part="voice.screen-player.stage"],
+:root [data-ws-part="voice.screen-player.video"] {
+  background: #000000;
+}
+
+:root [data-ws-part="voice.screen-player.exit"],
+:root [data-ws-part="voice.screen-player.fullscreen"] {
+  background: rgba(33, 33, 33, 0.85);
+  border: 1px solid var(--skin-onyx-border);
+  color: var(--skin-onyx-text);
+  border-radius: var(--skin-onyx-radius-sm);
+  backdrop-filter: blur(8px);
+}
+
+:root [data-ws-part="voice.screen-player.exit"]:hover,
+:root [data-ws-part="voice.screen-player.fullscreen"]:hover {
+  background: var(--skin-onyx-surface-elevated);
+}
+
+/* Chat Panel */
+:root [data-ws-part="voice.chat"],
+:root .chat-panel {
+  background: var(--skin-onyx-bg);
+  border-left: 1px solid var(--skin-onyx-border);
+}
+
+:root [data-ws-part="voice.chat.heading"],
+:root .chat-heading {
+  border-bottom: 1px solid var(--skin-onyx-border);
+}
+
+:root [data-ws-part="voice.chat.heading"] h2,
+:root .chat-heading h2 {
+  color: var(--skin-onyx-text);
+}
+
+:root [data-ws-part="voice.chat.tabs"],
+:root .chat-tabs {
+  background: var(--skin-onyx-bg);
+  border-bottom: 1px solid var(--skin-onyx-border);
+  gap: 4px;
+}
+
+:root [data-ws-part="voice.chat.tab"],
+:root .chat-tabs button {
+  color: var(--skin-onyx-text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--skin-onyx-radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  transition: all 0.14s ease;
+}
+
+:root [data-ws-part="voice.chat.tab"]:hover,
+:root .chat-tabs button:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface);
+}
+
+:root [data-ws-part="voice.chat.tab"][data-ws-state="active"],
+:root .chat-tabs button.active {
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface) !important;
+  border-color: var(--skin-onyx-border) !important;
+  font-weight: 600;
+}
+
+/* Chat Messages */
+:root [data-ws-part="voice.chat.message-bubble"],
+:root .message-bubble {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-md);
+  color: var(--skin-onyx-text);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+:root [data-ws-part="voice.chat.message"][data-ws-state="mine"] [data-ws-part="voice.chat.message-bubble"],
+:root .message-row.mine .message-bubble {
+  background: var(--skin-onyx-surface-elevated);
+  border-color: var(--skin-onyx-border-hover);
+  color: #ffffff;
+}
+
+:root .message-meta strong {
+  color: var(--skin-onyx-text);
+  font-size: 13px;
+}
+
+:root .message-meta time {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 11px;
+}
+
+:root [data-ws-part="voice.chat.empty"],
+:root .chat-empty {
+  color: var(--skin-onyx-text-subtle);
+  background: transparent;
+}
+
+:root [data-ws-part="voice.chat.empty"] strong,
+:root .chat-empty strong {
+  color: var(--skin-onyx-text-muted);
+}
+
+/* Chat Composer (ChatGPT Prompt Capsule) */
+:root [data-ws-part="voice.chat.composer"],
+:root .message-composer {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  padding: 6px 8px 6px 14px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+:root [data-ws-part="voice.chat.composer"]:focus-within,
+:root .message-composer:focus-within {
+  border-color: var(--skin-onyx-border-hover) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+:root [data-ws-part="voice.chat.composer"] input,
+:root .message-composer input {
+  color: var(--skin-onyx-text) !important;
+  font-size: 14px !important;
+}
+
+:root [data-ws-part="voice.chat.composer"] input::placeholder,
+:root .message-composer input::placeholder {
+  color: var(--skin-onyx-text-subtle) !important;
+}
+
+:root [data-ws-part="voice.chat.composer"] button,
+:root .send-button {
+  background: var(--skin-onyx-primary-btn) !important;
+  color: var(--skin-onyx-primary-btn-text) !important;
+  border-radius: var(--skin-onyx-radius-pill) !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: grid;
+  place-items: center;
+  transition: background 0.16s ease, opacity 0.16s ease;
+}
+
+:root [data-ws-part="voice.chat.composer"] button:disabled,
+:root .send-button:disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed;
+}
+
+/* Bottom Audio Control Dock */
+:root [data-ws-part="voice.audio-dock"],
+:root .desktop-audio-dock {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-card) !important;
+  backdrop-filter: blur(16px);
+}
+
+:root .desktop-audio-dock-copy strong {
+  color: var(--skin-onyx-text);
+  font-size: 12px;
+}
+
+:root .desktop-audio-dock-copy span {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 11px;
+}
+
+:root .dock-audio-button {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+  transition: color 0.16s, background 0.16s, border-color 0.16s;
+}
+
+:root .dock-audio-button:hover,
+:root .dock-audio-button:focus-visible {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-active);
+  border-color: var(--skin-onyx-border-hover);
+}
+
+:root .dock-audio-button.muted,
+:root .dock-audio-button.microphone-header-toggle.muted {
+  color: var(--skin-onyx-danger) !important;
+  background: var(--skin-onyx-danger-bg) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+:root .dock-audio-button.accompaniment-toggle.active {
+  color: var(--skin-onyx-accent);
+  background: rgba(16, 163, 127, 0.15);
+  border-color: var(--skin-onyx-accent);
+}
+
+:root [data-ws-part="voice.audio-dock.microphone-panel"],
+:root [data-ws-part="voice.audio-dock.output-panel"],
+:root .dock-hover-panel {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  color: var(--skin-onyx-text);
+}
+
+:root .dock-slider-heading span {
+  color: var(--skin-onyx-text-subtle);
+}
+
+:root .dock-slider-heading strong {
+  color: var(--skin-onyx-text);
+}
+
+:root .dock-slider {
+  accent-color: var(--skin-onyx-accent);
+}
+
+
 
