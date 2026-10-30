@@ -130,3 +130,48 @@ test("skin.css PostCSS and WebSpeak safety rules", () => {
 
   assert.equal(errors.length, 0, `CSS validation errors: ${errors.join("; ")}`);
 });
+
+test("element hiding rules for external links, QQ modal, and homepage animations", () => {
+  const css = readFileSync("src/skin.css", "utf8");
+
+  // Header suppression
+  assert.ok(css.includes(".github-button"), "Must suppress .github-button");
+  assert.ok(css.includes(".qq-button"), "Must suppress .qq-button");
+  assert.ok(css.includes(".bilibili-button"), "Must suppress .bilibili-button");
+  assert.ok(css.includes(".changelog-button"), "Must suppress .changelog-button");
+  assert.ok(css.includes(".version-badge"), "Must suppress .version-badge");
+
+  // Homepage social links & QQ modal suppression
+  assert.ok(css.includes('[data-ws-part="home.social-links"] a[href*="github"]'));
+  assert.ok(css.includes('[data-ws-part="home.social-links"] a[href*="qq"]'));
+  assert.ok(css.includes('[data-ws-part="home.social-links"] a[href*="bilibili"]'));
+  assert.ok(css.includes('.qq-modal-backdrop'));
+  assert.ok(css.includes('[data-ws-part="home.community-dialog"]'));
+
+  // Homepage animation removal
+  assert.ok(css.includes('[data-ws-part="home.join-card.sonar"]'));
+  assert.ok(css.includes('[data-ws-part="home.join-card.waveform"]'));
+  assert.ok(css.includes('[data-ws-part="home.visitors.orbit"]'));
+  assert.ok(css.includes('[data-ws-part="home.visitors.spark"]'));
+  assert.ok(css.includes('.join-card-effects'));
+
+  // Admin link retained and styled
+  assert.ok(css.includes('[data-ws-part="home.social-links"] a[href="/admin"]'));
+});
+
+test("connection homepage OpenAI visual tokens and controls", () => {
+  const css = readFileSync("src/skin.css", "utf8");
+
+  // Primary connect button white background
+  assert.ok(css.includes('[data-ws-part="home.connect"]'));
+  assert.ok(css.includes("--skin-onyx-primary-btn"));
+
+  // Form input field styling
+  assert.ok(css.includes('[data-ws-part="home.field"]'));
+  assert.ok(css.includes('[data-ws-part="home.field-label"]'));
+
+  // Quick server history list items
+  assert.ok(css.includes('[data-ws-part="home.server-history.item"]'));
+  assert.ok(css.includes('[data-ws-part="home.server-history.select"]'));
+});
+

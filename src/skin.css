@@ -80,3 +80,369 @@
   outline: 2px solid var(--skin-onyx-accent) !important;
   outline-offset: 2px !important;
 }
+
+/* ==========================================================================
+   1. Element Hiding (External Promotion & Redundant Animations)
+   ========================================================================== */
+
+/* Top header buttons: GitHub, QQ, Bilibili, Changelog, Version badge */
+:root .github-button,
+:root .qq-button,
+:root .bilibili-button,
+:root .changelog-button,
+:root .version-badge {
+  display: none !important;
+}
+
+/* Homepage external promotion in social-links (preserve /admin access) */
+:root [data-ws-part="home.social-links"] a[href*="github"],
+:root [data-ws-part="home.social-links"] a[href*="qq"],
+:root [data-ws-part="home.social-links"] a[href*="bilibili"] {
+  display: none !important;
+}
+
+/* QQ Modal Dialog */
+:root .qq-modal-backdrop,
+:root [data-ws-part="home.community-dialog"] {
+  display: none !important;
+}
+
+/* Remove decorative gaming/neon animations on Homepage */
+:root [data-ws-part="home.join-card.sonar"],
+:root [data-ws-part="home.join-card.waveform"],
+:root [data-ws-part="home.visitors.orbit"],
+:root [data-ws-part="home.visitors.spark"],
+:root .join-card-effects {
+  display: none !important;
+}
+
+/* ==========================================================================
+   2. Homepage Layout & Components (Login / Connect Screen)
+   ========================================================================== */
+
+:root [data-ws-part="home"] {
+  background-color: var(--skin-onyx-bg) !important;
+  color: var(--skin-onyx-text) !important;
+}
+
+:root [data-ws-part="home.header"] {
+  min-height: 64px;
+  background: var(--skin-onyx-bg);
+  border-bottom: 1px solid var(--skin-onyx-border);
+}
+
+:root [data-ws-part="home.brand"] strong {
+  color: var(--skin-onyx-text);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+:root [data-ws-part="home.brand"] small {
+  color: var(--skin-onyx-text-subtle);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+:root [data-ws-part="home.gateway-status"] {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-pill);
+  padding: 5px 12px;
+  font-size: 11px;
+}
+
+:root [data-ws-part="home.gateway-status"] .tiny-dot {
+  background: var(--skin-onyx-accent);
+  box-shadow: 0 0 0 3px var(--skin-onyx-accent-glow);
+}
+
+:root .guide-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 11px;
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+:root .guide-button:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated);
+  border-color: var(--skin-onyx-border-hover);
+}
+
+/* Retained Admin Link in Homepage Social Links */
+:root [data-ws-part="home.social-links"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+:root [data-ws-part="home.social-links"] a[href="/admin"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--skin-onyx-radius-sm);
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  color: var(--skin-onyx-text-muted);
+  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+:root [data-ws-part="home.social-links"] a[href="/admin"]:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated);
+  border-color: var(--skin-onyx-border-hover);
+}
+
+/* Homepage Hero */
+:root [data-ws-part="home.hero.eyebrow"] {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+:root [data-ws-part="home.hero.title"] {
+  color: var(--skin-onyx-text);
+  font-size: clamp(34px, 4.4vw, 54px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+:root [data-ws-part="home.hero.title"] em {
+  color: var(--skin-onyx-accent);
+  font-style: normal;
+  text-shadow: none;
+}
+
+:root [data-ws-part="home.hero.description"] {
+  color: var(--skin-onyx-text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+:root [data-ws-part="home.feature"] {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-md);
+  padding: 14px 16px;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+:root [data-ws-part="home.feature"]:hover {
+  border-color: var(--skin-onyx-border-hover);
+  background: var(--skin-onyx-surface-elevated);
+}
+
+:root [data-ws-part="home.feature"] b {
+  color: var(--skin-onyx-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+:root [data-ws-part="home.feature"] small {
+  color: var(--skin-onyx-text-muted);
+  font-size: 12px;
+}
+
+:root [data-ws-part="home.feature"] > span:first-child {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  color: var(--skin-onyx-accent);
+}
+
+:root [data-ws-part="home.visitors"] {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-pill);
+}
+
+:root [data-ws-part="home.visitors.label"],
+:root [data-ws-part="home.visitors.total"] {
+  color: var(--skin-onyx-text);
+  font-weight: 600;
+}
+
+/* Homepage Connection Card */
+:root [data-ws-part="home.join-card"] {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-lg);
+  box-shadow: var(--skin-onyx-shadow-card);
+  padding: 32px 28px;
+}
+
+:root [data-ws-part="home.join-title"] {
+  color: var(--skin-onyx-text);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+:root [data-ws-part="home.join-description"] {
+  color: var(--skin-onyx-text-muted);
+  font-size: 13px;
+}
+
+:root [data-ws-part="home.field-label"] {
+  color: var(--skin-onyx-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+:root [data-ws-part="home.field-label"] span {
+  color: var(--skin-onyx-text-subtle);
+  font-weight: 400;
+}
+
+:root [data-ws-part="home.field"] {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+  color: var(--skin-onyx-text);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+:root [data-ws-part="home.field"]:focus-within {
+  border-color: var(--skin-onyx-border-hover);
+  box-shadow: 0 0 0 1px var(--skin-onyx-border-hover);
+}
+
+:root [data-ws-part="home.field"] input {
+  color: var(--skin-onyx-text);
+  background: transparent;
+  font-size: 14px;
+}
+
+:root [data-ws-part="home.field"] input::placeholder {
+  color: var(--skin-onyx-text-subtle);
+}
+
+/* Connect / Submit Primary Button (White on Black) */
+:root [data-ws-part="home.connect"] {
+  background: var(--skin-onyx-primary-btn) !important;
+  color: var(--skin-onyx-primary-btn-text) !important;
+  border: none !important;
+  border-radius: var(--skin-onyx-radius-sm);
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.16s ease, transform 0.16s ease;
+}
+
+:root [data-ws-part="home.connect"]:hover:not(:disabled) {
+  background: var(--skin-onyx-primary-btn-hover) !important;
+  transform: translateY(-1px);
+}
+
+:root [data-ws-part="home.connect"]:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+:root .cancel-connect-button {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  color: var(--skin-onyx-text-muted);
+  border-radius: var(--skin-onyx-radius-sm);
+}
+
+:root .cancel-connect-button:hover {
+  background: var(--skin-onyx-surface-active);
+  color: var(--skin-onyx-text);
+}
+
+/* Server History / Quick Servers */
+:root [data-ws-part="home.server-history.group"] > span {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+:root [data-ws-part="home.server-history.item"] {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+:root [data-ws-part="home.server-history.item"]:hover {
+  background: var(--skin-onyx-surface-active);
+  border-color: var(--skin-onyx-border-hover);
+}
+
+:root [data-ws-part="home.server-history.select"] {
+  color: var(--skin-onyx-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+:root [data-ws-part="home.server-history.favorite-toggle"] {
+  color: var(--skin-onyx-text-subtle);
+}
+
+:root [data-ws-part="home.server-history.favorite-toggle"][data-ws-state="saved"],
+:root [data-ws-part="home.server-history.favorite-toggle"].active {
+  color: var(--skin-onyx-warning);
+}
+
+/* Identity Options */
+:root [data-ws-part="home.identity"] summary {
+  color: var(--skin-onyx-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+:root [data-ws-part="home.identity-actions"] button {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  color: var(--skin-onyx-text-muted);
+  border-radius: var(--skin-onyx-radius-sm);
+  font-size: 12px;
+  transition: color 0.16s ease, background 0.16s ease;
+}
+
+:root [data-ws-part="home.identity-actions"] button:hover:not(:disabled) {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-active);
+  border-color: var(--skin-onyx-border-hover);
+}
+
+:root [data-ws-part="home.security-note"] {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 11px;
+}
+
+:root [data-ws-part="home.footer"] {
+  border-top: 1px solid var(--skin-onyx-border);
+  color: var(--skin-onyx-text-subtle);
+  font-size: 12px;
+}
+
+:root [data-ws-part="home.footer"] button,
+:root [data-ws-part="home.footer"] a {
+  color: var(--skin-onyx-text-muted);
+}
+
+:root [data-ws-part="home.footer"] button:hover,
+:root [data-ws-part="home.footer"] a:hover {
+  color: var(--skin-onyx-text);
+}
+
