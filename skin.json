@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "id": "community.onyx",
   "name": "Onyx",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "webspeak-skin-onyx",
   "license": "MIT",
   "description": "OpenAI-inspired minimalist dark voice workspace skin for WebSpeak.",
   "minAppVersion": "0.2.8",
   "package": {
-    "ref": "v1.1.0",
+    "ref": "v1.2.0",
     "path": "onyx.wskin",
-    "sha256": "17346b1545bb27f710faf120bfe2cf4379d2655289d9719b0f252e256025028f"
+    "sha256": "19ee880dbd4d3d49a4ef968131076ca943a2303acca424f1b0c0c7a6f8a126f9"
   }
 }
