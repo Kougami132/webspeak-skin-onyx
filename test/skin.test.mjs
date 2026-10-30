@@ -175,3 +175,29 @@ test("connection homepage OpenAI visual tokens and controls", () => {
   assert.ok(css.includes('[data-ws-part="home.server-history.select"]'));
 });
 
+test("voice stage, channel navigation and participant cards styling", () => {
+  const css = readFileSync("src/skin.css", "utf8");
+
+  // Server rail & channel tree
+  assert.ok(css.includes('[data-ws-part="voice.favorite-servers.rail"]'));
+  assert.ok(css.includes('[data-ws-part="voice.channel-group.heading"]'));
+
+  // Artwork suppression in stage
+  assert.ok(css.includes('[data-ws-part="voice.activity.artwork"]'));
+  assert.ok(css.includes('[data-ws-part="voice.member-panel"]::before'));
+
+  // Voice member cards & speaking states
+  assert.ok(css.includes('[data-ws-part="voice.member"]'));
+  assert.ok(css.includes('[data-ws-part="voice.member.avatar"]'));
+  assert.ok(css.includes('[data-ws-part="voice.member.name"]'));
+  assert.ok(css.includes('[data-ws-part="voice.member.status"]'));
+  assert.ok(css.includes('[data-ws-speaking="true"]'));
+
+  // Avatar uniform fallback (no rainbow)
+  assert.ok(css.includes('[data-ws-part="voice.member.avatar"]'));
+
+  // Screen share live indicator
+  assert.ok(css.includes('[data-ws-part="voice.member.live-indicator"]'));
+});
+
+

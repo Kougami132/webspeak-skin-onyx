@@ -446,3 +446,409 @@
   color: var(--skin-onyx-text);
 }
 
+/* ==========================================================================
+   3. Common Dropdowns: Skin & Language Switchers
+   ========================================================================== */
+
+:root [data-ws-part="skin.trigger"],
+:root [data-ws-part="language.trigger"] {
+  color: var(--skin-onyx-text-muted) !important;
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-size: 12px !important;
+  box-shadow: none !important;
+  transition: color 0.16s, background 0.16s, border-color 0.16s !important;
+}
+
+:root [data-ws-part="skin.trigger"]:hover,
+:root [data-ws-part="language.trigger"]:hover,
+:root [data-ws-part="skin.trigger"][data-ws-state="open"],
+:root [data-ws-part="language.trigger"][data-ws-state="open"] {
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+  border-color: var(--skin-onyx-border-hover) !important;
+}
+
+:root [data-ws-part="skin.menu"],
+:root [data-ws-part="language.menu"] {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  padding: 6px !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+:root [data-ws-part="skin.option"],
+:root [data-ws-part="language.option"] {
+  color: var(--skin-onyx-text-muted) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-size: 12px !important;
+  animation: none !important;
+  transition: color 0.14s, background 0.14s !important;
+}
+
+:root [data-ws-part="skin.option"]:hover,
+:root [data-ws-part="language.option"]:hover,
+:root [data-ws-part="skin.option"]:focus-visible,
+:root [data-ws-part="language.option"]:focus-visible {
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+}
+
+:root [data-ws-part="skin.option"][aria-selected="true"],
+:root [data-ws-part="language.option"][aria-selected="true"] {
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-active) !important;
+  font-weight: 600 !important;
+}
+
+:root [data-ws-part="skin.option"][data-ws-skin-id="community.onyx"][aria-selected="true"] {
+  color: var(--skin-onyx-accent) !important;
+}
+
+/* ==========================================================================
+   4. Voice Workspace Application Shell
+   ========================================================================== */
+
+:root [data-ws-part="voice.shell"],
+:root .app-shell {
+  background: var(--skin-onyx-bg);
+  color: var(--skin-onyx-text);
+}
+
+:root [data-ws-part="voice.workspace"],
+:root .workspace {
+  background: var(--skin-onyx-bg);
+}
+
+/* Top Workspace Header */
+:root [data-ws-part="voice.header"],
+:root .workspace-header {
+  min-height: 52px;
+  background: var(--skin-onyx-bg);
+  border-bottom: 1px solid var(--skin-onyx-border);
+}
+
+:root [data-ws-part="voice.breadcrumbs"] {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 13px;
+}
+
+:root [data-ws-part="voice.breadcrumbs"] strong {
+  color: var(--skin-onyx-text);
+  font-weight: 600;
+}
+
+:root .header-action {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+  transition: color 0.16s, background 0.16s, border-color 0.16s;
+}
+
+:root .header-action:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated);
+  border-color: var(--skin-onyx-border-hover);
+}
+
+/* Disconnect Button (Muted Red) */
+:root .disconnect-button {
+  color: var(--skin-onyx-danger) !important;
+  background: var(--skin-onyx-danger-bg) !important;
+  border: 1px solid rgba(239, 68, 68, 0.25) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-weight: 600 !important;
+  transition: background 0.16s ease, border-color 0.16s ease;
+}
+
+:root .disconnect-button:hover {
+  background: rgba(239, 68, 68, 0.22) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Left Server Rail */
+:root [data-ws-part="voice.favorite-servers.rail"],
+:root .favorite-server-rail {
+  background: var(--skin-onyx-bg);
+  border-right: 1px solid var(--skin-onyx-border);
+}
+
+:root [data-ws-part="voice.favorite-servers.server"],
+:root .favorite-server-button,
+:root [data-ws-part="voice.favorite-servers.add"],
+:root .favorite-server-add {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-md);
+  color: var(--skin-onyx-text-muted);
+  transition: all 0.16s ease;
+}
+
+:root [data-ws-part="voice.favorite-servers.server"]:hover,
+:root .favorite-server-button:hover,
+:root [data-ws-part="voice.favorite-servers.add"]:hover,
+:root .favorite-server-add:hover {
+  background: var(--skin-onyx-surface-elevated);
+  border-color: var(--skin-onyx-border-hover);
+  color: var(--skin-onyx-text);
+}
+
+:root [data-ws-part="voice.favorite-servers.server"][data-ws-state="current"],
+:root .favorite-server-button.active {
+  background: var(--skin-onyx-surface-elevated);
+  border-color: var(--skin-onyx-accent);
+  color: var(--skin-onyx-text);
+  box-shadow: 0 0 0 1px var(--skin-onyx-accent);
+}
+
+:root .favorite-server-button.active::before {
+  background: var(--skin-onyx-accent);
+}
+
+:root [data-ws-part="voice.favorite-servers.tooltip"],
+:root .favorite-server-tooltip {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border-hover);
+  border-radius: var(--skin-onyx-radius-sm);
+  color: var(--skin-onyx-text);
+  box-shadow: var(--skin-onyx-shadow-elevated);
+}
+
+/* Left Channel & Member Panel */
+:root [data-ws-part="voice.member-panel"],
+:root .member-panel {
+  background: var(--skin-onyx-bg);
+  border-right: 1px solid var(--skin-onyx-border);
+  box-shadow: none;
+}
+
+:root [data-ws-part="voice.member-panel"]::before {
+  display: none !important;
+  background: none !important;
+}
+
+:root [data-ws-part="voice.member-panel.heading"] h2 {
+  color: var(--skin-onyx-text);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+:root .status-button {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+  color: var(--skin-onyx-text-muted);
+  font-size: 12px;
+}
+
+:root .status-button:hover {
+  background: var(--skin-onyx-surface-elevated);
+  color: var(--skin-onyx-text);
+}
+
+:root .status-button .status-dot {
+  background: var(--skin-onyx-accent);
+}
+
+:root .status-button.active .status-dot {
+  background: var(--skin-onyx-warning);
+}
+
+:root [data-ws-part="voice.member-panel.search"],
+:root .member-search {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+}
+
+:root [data-ws-part="voice.member-panel.search"] input,
+:root .member-search input {
+  color: var(--skin-onyx-text);
+  font-size: 13px;
+}
+
+:root [data-ws-part="voice.member-panel.search"] input::placeholder,
+:root .member-search input::placeholder {
+  color: var(--skin-onyx-text-subtle);
+}
+
+:root [data-ws-part="voice.channel-group.heading"],
+:root .member-channel-heading {
+  color: var(--skin-onyx-text-muted);
+  border-radius: var(--skin-onyx-radius-sm);
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.14s, background 0.14s;
+}
+
+:root [data-ws-part="voice.channel-group.heading"]:hover,
+:root .member-channel-heading:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface);
+}
+
+:root [data-ws-part="voice.channel-group.heading"][data-ws-state="current"],
+:root .member-channel-group.current .member-channel-heading {
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface) !important;
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--skin-onyx-accent);
+}
+
+:root [data-ws-part="voice.member-row"],
+:root .member-row {
+  border-radius: var(--skin-onyx-radius-sm);
+  padding: 6px 10px;
+  transition: background 0.14s ease;
+}
+
+:root [data-ws-part="voice.member-row"]:hover,
+:root .member-row:hover {
+  background: var(--skin-onyx-surface);
+}
+
+:root [data-ws-part="voice.member-row"][data-ws-state="speaking"],
+:root .member-row:has(.member-avatar.speaking) {
+  background: rgba(16, 163, 127, 0.08);
+}
+
+:root [data-ws-part="voice.member-row.avatar"],
+:root .member-avatar {
+  border-radius: var(--skin-onyx-radius-pill);
+  background: var(--skin-onyx-surface-elevated) !important;
+  color: #ffffff !important;
+}
+
+:root [data-ws-part="voice.member-row.avatar"].speaking,
+:root .member-avatar.speaking {
+  box-shadow: 0 0 0 2px var(--skin-onyx-accent), 0 0 8px var(--skin-onyx-accent-glow);
+}
+
+:root [data-ws-part="voice.member-row.copy"] strong,
+:root .member-copy strong {
+  color: var(--skin-onyx-text);
+  font-size: 13px;
+}
+
+:root [data-ws-part="voice.member-row.copy"] span,
+:root .member-copy span {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 11px;
+}
+
+/* Main Content Stage */
+:root [data-ws-part="voice.activity"],
+:root .voice-section {
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-lg);
+  box-shadow: var(--skin-onyx-shadow-card);
+}
+
+:root [data-ws-part="voice.activity.artwork"] {
+  display: none !important;
+}
+
+:root [data-ws-part="voice.activity-heading"] h2,
+:root .section-heading h2 {
+  color: var(--skin-onyx-text);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+:root [data-ws-part="voice.activity-heading"] span,
+:root .section-counter {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 12px;
+}
+
+/* Participant Member Cards in Voice Stage */
+:root [data-ws-part="voice.member"],
+:root .voice-card {
+  background: var(--skin-onyx-bg) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-card) !important;
+  transition: border-color 0.16s ease, transform 0.16s ease;
+}
+
+:root [data-ws-part="voice.member"]:hover,
+:root .voice-card:hover {
+  border-color: var(--skin-onyx-border-hover) !important;
+  transform: translateY(-1px);
+}
+
+:root [data-ws-part="voice.member"][data-ws-speaking="true"],
+:root .voice-card.speaking {
+  border-color: var(--skin-onyx-accent) !important;
+  box-shadow: 0 0 0 1px var(--skin-onyx-accent), 0 8px 24px rgba(16, 163, 127, 0.15) !important;
+}
+
+:root [data-ws-part="voice.member.avatar"],
+:root .voice-avatar {
+  border-radius: var(--skin-onyx-radius-pill);
+  background: var(--skin-onyx-surface-elevated) !important;
+  color: #ffffff !important;
+}
+
+:root [data-ws-part="voice.member.avatar"].speaking,
+:root .voice-avatar.speaking {
+  outline: 3px solid var(--skin-onyx-accent) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 16px var(--skin-onyx-accent-glow) !important;
+}
+
+:root [data-ws-part="voice.member.name"],
+:root .voice-card > strong {
+  color: var(--skin-onyx-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+:root [data-ws-part="voice.member.status"],
+:root .voice-card > span {
+  color: var(--skin-onyx-text-subtle);
+  font-size: 12px;
+}
+
+:root [data-ws-part="voice.member"][data-ws-speaking="true"] [data-ws-part="voice.member.status"],
+:root .voice-card.speaking > span {
+  color: var(--skin-onyx-accent);
+}
+
+:root .voice-member-action {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+}
+
+:root .voice-member-action:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated);
+}
+
+/* Screen Share Live Indicator Badge */
+:root [data-ws-part="voice.member.live-indicator"],
+:root .screen-share-live-indicator {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid rgba(16, 163, 127, 0.4);
+  color: var(--skin-onyx-accent);
+  border-radius: var(--skin-onyx-radius-pill);
+}
+
+:root [data-ws-part="voice.member.live-indicator"]::before,
+:root .screen-share-live-indicator::before {
+  background: var(--skin-onyx-accent);
+  box-shadow: 0 0 0 3px var(--skin-onyx-accent-glow);
+}
+
+
