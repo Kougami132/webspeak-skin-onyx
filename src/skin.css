@@ -142,11 +142,9 @@
    ========================================================================== */
 
 /*
-   CRITICAL BUG FIX:
-   Never use "background: ... !important;" on avatars!
-   "background" resets background-image to none, which blocked other users' uploaded avatars.
-   We set background-color fallback to #2f2f2f so real avatars (via inline backgroundImage)
-   render properly on top of it, while users without avatars get a clean dark circle.
+   CRITICAL FIX:
+   Preserve WebSpeak's inline backgroundImage for uploaded avatars.
+   Do not override background with shorthand, ensuring real avatars render crisp and centered.
 */
 :root [data-ws-part="voice.member.avatar"],
 :root [data-ws-part="voice.member-row.avatar"],
@@ -160,12 +158,29 @@
 :root .favorite-server-avatar,
 :root .ws-voice-channel-member-avatar {
   border-radius: 50% !important;
-  background-color: var(--skin-onyx-surface-elevated);
   background-position: center !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
+  overflow: hidden !important;
+}
+
+:root [data-ws-part="voice.member.avatar-wrap"],
+:root .voice-avatar-wrap {
+  width: 76px !important;
+  height: 76px !important;
+  margin: 0 auto 12px !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+:root [data-ws-part="voice.member.avatar"],
+:root .voice-avatar {
+  width: 76px !important;
+  height: 76px !important;
+  border-radius: 50% !important;
+  font-size: 24px !important;
+  display: grid !important;
+  place-items: center !important;
 }
 
 /* ==========================================================================
@@ -1462,28 +1477,102 @@
 
 :root [data-ws-part="voice.connection-status"],
 :root .workspace-connection-status {
+  position: fixed !important;
+  z-index: 99 !important;
+  top: 14px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: min(720px, calc(100% - 24px)) !important;
+  max-width: calc(100% - 24px) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 8px 14px 8px 18px !important;
   background: var(--skin-onyx-surface) !important;
   border: 1px solid var(--skin-onyx-border-hover) !important;
-  border-radius: var(--skin-onyx-radius-md) !important;
-  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  border-radius: var(--skin-onyx-radius-pill) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65) !important;
   color: var(--skin-onyx-text) !important;
+  box-sizing: border-box !important;
 }
 
-:root [data-ws-part="voice.connection-status"] input {
+:root [data-ws-part="voice.connection-status"] p,
+:root [data-ws-part="voice.connection-status.message"] {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--skin-onyx-text-muted) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+:root [data-ws-part="voice.connection-status"] label,
+:root [data-ws-part="voice.connection-status.nickname"] {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  margin: 0 !important;
+  font-size: 12px !important;
+  color: var(--skin-onyx-text-subtle) !important;
+}
+
+:root [data-ws-part="voice.connection-status"] label span {
+  white-space: nowrap !important;
+  flex: 0 0 auto !important;
+}
+
+:root [data-ws-part="voice.connection-status"] input,
+:root [data-ws-part="voice.connection-status.nickname.input"] {
+  width: 120px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 10px !important;
+  font-size: 13px !important;
   background: var(--skin-onyx-surface-elevated) !important;
   border: 1px solid var(--skin-onyx-border) !important;
-  color: var(--skin-onyx-text) !important;
   border-radius: var(--skin-onyx-radius-sm) !important;
+  color: var(--skin-onyx-text) !important;
+  outline: none !important;
 }
 
-:root [data-ws-part="voice.connection-status"] button {
+:root [data-ws-part="voice.connection-status"] input:focus {
+  border-color: var(--skin-onyx-accent) !important;
+}
+
+:root [data-ws-part="voice.connection-status"] button,
+:root [data-ws-part="voice.connection-status.reconnect"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: max-content !important;
+  white-space: nowrap !important;
+  padding: 0 18px !important;
+  height: 36px !important;
+  min-height: 36px !important;
   background: var(--skin-onyx-primary-btn) !important;
   color: var(--skin-onyx-primary-btn-text) !important;
-  border-radius: var(--skin-onyx-radius-sm) !important;
+  border-radius: var(--skin-onyx-radius-pill) !important;
+  font-size: 13px !important;
   font-weight: 600 !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  transition: background 0.16s ease !important;
 }
 
-:root [data-ws-part="voice.connection-status"] button:hover:not(:disabled) {
+:root [data-ws-part="voice.connection-status"] button:hover:not(:disabled),
+:root [data-ws-part="voice.connection-status.reconnect"]:hover:not(:disabled) {
   background: var(--skin-onyx-primary-btn-hover) !important;
 }
 
