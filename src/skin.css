@@ -669,12 +669,33 @@
 :root [data-ws-part="voice.workspace"],
 :root .workspace {
   background: var(--skin-onyx-surface) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* Workspace Scroll Area (Fill Full Height) */
+:root [data-ws-part="voice.scroll"],
+:root .workspace-scroll {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: calc(100vh - 52px) !important;
+  max-height: calc(100vh - 52px) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
 }
 
 /* Top Workspace Header */
 :root [data-ws-part="voice.header"],
 :root .workspace-header {
   min-height: 52px !important;
+  height: 52px !important;
+  flex: 0 0 52px !important;
   background: var(--skin-onyx-surface) !important;
   border-bottom: 1px solid var(--skin-onyx-border) !important;
   padding: 0 20px !important;
@@ -783,13 +804,26 @@
   box-shadow: var(--skin-onyx-shadow-elevated) !important;
 }
 
-/* Left Channel & Member Panel (Sidebar) */
+/* Left Channel & Member Panel (Sidebar - Full Height) */
 :root [data-ws-part="voice.member-panel"],
 :root .member-panel {
   background: var(--skin-onyx-sidebar-bg) !important;
   border-right: 1px solid var(--skin-onyx-border) !important;
   box-shadow: none !important;
   padding: 16px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  box-sizing: border-box !important;
+}
+
+:root [data-ws-part="voice.member-panel.channels"],
+:root .member-tree {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
 }
 
 :root [data-ws-part="voice.member-panel.heading"] h2,
@@ -902,7 +936,7 @@
   font-size: 11px !important;
 }
 
-/* Main Workspace Content (Stage + Chat) */
+/* Main Workspace Content (Stage + Chat - Full Height) */
 :root [data-ws-part="voice.content"],
 :root .workspace-content {
   width: 100% !important;
@@ -910,13 +944,16 @@
   margin: 0 !important;
   padding: 0 !important;
   display: flex !important;
+  flex-direction: row !important;
   flex: 1 1 0 !important;
   min-height: 0 !important;
   height: 100% !important;
+  max-height: 100% !important;
   background: var(--skin-onyx-surface) !important;
+  overflow: hidden !important;
 }
 
-/* Voice Activity Stage */
+/* Voice Activity Stage (Fill Height, Internal Scroll) */
 :root [data-ws-part="voice.activity"],
 :root .voice-section {
   background: var(--skin-onyx-surface) !important;
@@ -926,9 +963,13 @@
   padding: 24px 32px !important;
   flex: 1 1 0 !important;
   min-width: 0 !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
   overflow-y: auto !important;
   display: flex !important;
   flex-direction: column !important;
+  box-sizing: border-box !important;
 }
 
 :root [data-ws-part="voice.activity-heading"],
@@ -1082,7 +1123,7 @@
   background: var(--skin-onyx-surface-elevated) !important;
 }
 
-/* Chat Panel (Remove Ugly Top Border and Align Smoothly) */
+/* Chat Panel (Full Height Column to Bottom of Page) */
 :root [data-ws-part="voice.chat"],
 :root .chat-panel {
   background: var(--skin-onyx-bg) !important;
@@ -1091,13 +1132,19 @@
   margin-top: 0 !important;
   width: 360px !important;
   flex: 0 0 360px !important;
+  min-width: 320px !important;
+  max-width: 420px !important;
   display: flex !important;
   flex-direction: column !important;
   height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  box-sizing: border-box !important;
 }
 
 :root [data-ws-part="voice.chat.heading"],
 :root .chat-heading {
+  flex: 0 0 auto !important;
   border-bottom: 1px solid var(--skin-onyx-border) !important;
   padding: 14px 16px !important;
 }
@@ -1111,6 +1158,7 @@
 
 :root [data-ws-part="voice.chat.tabs"],
 :root .chat-tabs {
+  flex: 0 0 auto !important;
   background: var(--skin-onyx-bg) !important;
   border-bottom: 1px solid var(--skin-onyx-border) !important;
   gap: 4px !important;
@@ -1143,12 +1191,16 @@
   font-weight: 600 !important;
 }
 
-/* Chat Messages (Flat Conversational Thread, Smooth Rounded Edges) */
+/* Chat Messages (Flat Conversational Thread, Takes Available Height) */
 :root [data-ws-part="voice.chat.messages"],
 :root .message-list {
   padding: 16px !important;
   flex: 1 1 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: auto !important;
   overflow-y: auto !important;
+  box-sizing: border-box !important;
 }
 
 :root [data-ws-part="voice.chat.message"],
@@ -1196,16 +1248,19 @@
   color: var(--skin-onyx-text-muted) !important;
 }
 
-/* Chat Composer (ChatGPT Prompt Capsule) */
+/* Chat Composer (ChatGPT Prompt Capsule Pinned to Bottom) */
 :root [data-ws-part="voice.chat.composer"],
 :root .message-composer {
+  flex: 0 0 auto !important;
+  position: static !important;
   background: var(--skin-onyx-surface) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 14px !important;
   padding: 6px 8px 6px 14px !important;
-  margin: 12px 16px 16px !important;
+  margin: 12px 16px 12px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
   transition: all 0.16s ease !important;
+  box-sizing: border-box !important;
 }
 
 :root [data-ws-part="voice.chat.composer"]:focus-within,
@@ -1243,9 +1298,21 @@
   cursor: not-allowed !important;
 }
 
-/* Bottom Audio Control Dock (Smooth Rounded 12px Card, No Sharp White Boxes) */
+:root [data-ws-part="voice.chat.status"],
+:root .chat-status {
+  flex: 0 0 auto !important;
+  margin: 0 16px 14px !important;
+}
+
+/* Bottom Audio Control Dock (Anchored Cleanly in Sidebar) */
 :root [data-ws-part="voice.audio-dock"],
 :root .desktop-audio-dock {
+  flex: 0 0 auto !important;
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-top: auto !important;
   background: var(--skin-onyx-surface) !important;
   border: 1px solid var(--skin-onyx-border) !important;
   border-radius: var(--skin-onyx-radius-md) !important;
