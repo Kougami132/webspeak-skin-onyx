@@ -4,13 +4,13 @@
 
 **Blocked by:** 04: Conversational chat, prompt composer and audio dock
 
-**Status:** ready-for-agent
+**Status:** completed
 
-- [ ] Password dialogs (channel and server), audio settings modal, identity import modal, and favorite server modal render with dark matte styling (`#212121`), subtle borders, and blurred backdrops.
-- [ ] Dropdown select menus (audio devices, relays) render with dark options, clear hover states, and smooth open transitions.
-- [ ] Persistent workspace disconnect state displays as a top-centered floating capsule (`voice.connection-status`) with a single-click reconnect action.
-- [ ] Mobile viewport (width < 740px) 4-tab navigation bar provides touch-friendly 44px hit targets and safe area insets.
-- [ ] Accessibility rule `prefers-reduced-motion: reduce` dampens all transitions and animations to instant.
-- [ ] Demo page (`[data-ws-page="demo"]`) supports full dark theme styling.
-- [ ] Build script generates `onyx.wskin` and syncs SHA-256 in `skin.json`.
-- [ ] Full automated test suite passes green with timeout protection, verifying all schema, checksum, and selector constraints.
+- [x] Password dialogs (channel and server), audio settings modal, identity import modal, and favorite server modal render with dark matte styling (`#212121`), subtle borders, and blurred backdrops.
+- [x] Dropdown select menus (audio devices, relays) render with dark options, clear hover states, and smooth open transitions.
+- [x] Persistent workspace disconnect state displays as a top-centered floating capsule (`voice.connection-status`) with a single-click reconnect action.
+- [x] Mobile viewport (width < 740px) 4-tab navigation bar provides touch-friendly 44px hit targets and safe area insets.
+- [x] Accessibility rule `prefers-reduced-motion: reduce` dampens all transitions and animations to instant.
+- [x] Demo page (`[data-ws-page="demo"]`) supports full dark theme styling.
+- [x] Build script generates `onyx.wskin` and syncs SHA-256 in `skin.json`.
+- [x] Full automated test suite passes green with timeout protection, verifying all schema, checksum, and selector constraints.

@@ -224,5 +224,31 @@ test("conversational chat, prompt composer and audio dock styling", () => {
   assert.ok(css.includes('[data-ws-part="voice.screen-player.stage"]'));
 });
 
+test("modals, persistent workspace disconnect capsule, and reduced motion styling", () => {
+  const css = readFileSync("src/skin.css", "utf8");
+
+  // Modal dialogs
+  assert.ok(css.includes('[data-ws-part="auth.password.dialog"]'));
+  assert.ok(css.includes('[data-ws-part="voice.audio-settings"]'));
+  assert.ok(css.includes('[data-ws-part="home.identity-import-dialog"]'));
+  assert.ok(css.includes('[data-ws-part="voice.favorite-servers.dialog"]'));
+
+  // Device select menu
+  assert.ok(css.includes('[data-ws-part="voice.audio-settings.device-select-menu"]'));
+  assert.ok(css.includes('[data-ws-part="voice.audio-settings.device-select-option"]'));
+
+  // Persistent workspace connection status capsule
+  assert.ok(css.includes('[data-ws-part="voice.connection-status"]'));
+
+  // Demo page styling
+  assert.ok(css.includes('[data-ws-page="demo"]'));
+  assert.ok(css.includes('[data-ws-part="demo.header"]'));
+  assert.ok(css.includes('[data-ws-part="demo.main"]'));
+
+  // Accessibility reduced-motion
+  assert.ok(css.includes("prefers-reduced-motion: reduce"));
+});
+
+
 
 

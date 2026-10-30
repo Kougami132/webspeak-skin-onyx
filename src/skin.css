@@ -1083,5 +1083,351 @@
   accent-color: var(--skin-onyx-accent);
 }
 
+/* Voice Performance Panel */
+:root [data-ws-part="voice.performance"] > button,
+:root .performance-trigger {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+}
+
+:root [data-ws-part="voice.performance"] > button:hover,
+:root .performance-trigger:hover,
+:root .performance-trigger[aria-expanded="true"] {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated);
+}
+
+:root [data-ws-part="voice.performance.panel"],
+:root .performance-panel {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  color: var(--skin-onyx-text);
+}
+
+:root [data-ws-part="voice.performance.metrics"] article,
+:root .voice-audio-metrics article {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+}
+
+:root [data-ws-part="voice.performance.metrics"] strong,
+:root .voice-audio-metrics strong {
+  color: var(--skin-onyx-accent);
+}
+
+:root [data-ws-part="voice.performance.metrics"] small,
+:root [data-ws-part="voice.performance.metrics"] span {
+  color: var(--skin-onyx-text-subtle);
+}
+
+/* ==========================================================================
+   5. Modals & Dialogs (Password, Audio Settings, Identity, Favorites)
+   ========================================================================== */
+
+:root .modal-backdrop {
+  background: rgba(0, 0, 0, 0.72) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+:root [data-ws-part="auth.password.dialog"],
+:root [data-ws-part="voice.audio-settings"],
+:root [data-ws-part="voice.screen-share-settings"],
+:root [data-ws-part="home.identity-import-dialog"],
+:root [data-ws-part="voice.favorite-servers.dialog"],
+:root .settings-modal,
+:root .channel-password-modal,
+:root .identity-import-modal,
+:root .favorite-server-dialog {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-lg) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  color: var(--skin-onyx-text) !important;
+}
+
+:root .settings-modal h2,
+:root .channel-password-modal h2,
+:root .identity-import-header h2,
+:root .favorite-server-dialog-header h2 {
+  color: var(--skin-onyx-text);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+:root .settings-modal h3 {
+  color: var(--skin-onyx-text);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+:root .settings-label,
+:root .favorite-server-dialog-field {
+  color: var(--skin-onyx-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+:root .settings-select,
+:root [data-ws-part="voice.audio-settings.device-select-trigger"],
+:root .favorite-server-dialog-field input,
+:root .identity-import-textarea,
+:root .channel-password-form .field-wrap {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  color: var(--skin-onyx-text) !important;
+}
+
+:root .settings-select:hover,
+:root .favorite-server-dialog-field input:focus,
+:root .identity-import-textarea:focus {
+  border-color: var(--skin-onyx-border-hover) !important;
+}
+
+:root [data-ws-part="voice.audio-settings.device-select-menu"],
+:root .settings-select-menu {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+}
+
+:root [data-ws-part="voice.audio-settings.device-select-option"],
+:root .settings-select-option {
+  color: var(--skin-onyx-text-muted) !important;
+}
+
+:root [data-ws-part="voice.audio-settings.device-select-option"]:hover,
+:root [data-ws-part="voice.audio-settings.device-select-option"].active,
+:root [data-ws-part="voice.audio-settings.device-select-option"][aria-selected="true"],
+:root .settings-select-option:hover,
+:root .settings-select-option.active,
+:root .settings-select-option[aria-selected="true"] {
+  color: var(--skin-onyx-text) !important;
+  background: var(--skin-onyx-surface-elevated) !important;
+}
+
+:root .channel-password-icon {
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  color: var(--skin-onyx-accent);
+}
+
+:root .primary-button,
+:root [data-ws-part="auth.password.submit"],
+:root [data-ws-part="home.identity-import.submit"],
+:root [data-ws-part="voice.favorite-servers.dialog.submit"],
+:root .save-button {
+  background: var(--skin-onyx-primary-btn) !important;
+  color: var(--skin-onyx-primary-btn-text) !important;
+  border: none !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+
+:root .primary-button:hover:not(:disabled),
+:root [data-ws-part="auth.password.submit"]:hover:not(:disabled),
+:root [data-ws-part="home.identity-import.submit"]:hover:not(:disabled),
+:root [data-ws-part="voice.favorite-servers.dialog.submit"]:hover:not(:disabled),
+:root .save-button:hover {
+  background: var(--skin-onyx-primary-btn-hover) !important;
+}
+
+:root .text-button,
+:root [data-ws-part="auth.password.cancel"],
+:root [data-ws-part="home.identity-import.cancel"],
+:root [data-ws-part="voice.favorite-servers.dialog.cancel"] {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+  font-weight: 500;
+}
+
+:root .text-button:hover,
+:root [data-ws-part="auth.password.cancel"]:hover,
+:root [data-ws-part="home.identity-import.cancel"]:hover,
+:root [data-ws-part="voice.favorite-servers.dialog.cancel"]:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-active);
+  border-color: var(--skin-onyx-border-hover);
+}
+
+:root .round-icon,
+:root .qq-modal-close,
+:root .favorite-server-dialog-close {
+  color: var(--skin-onyx-text-muted);
+  background: var(--skin-onyx-surface-elevated);
+  border: 1px solid var(--skin-onyx-border);
+  border-radius: var(--skin-onyx-radius-sm);
+}
+
+:root .round-icon:hover,
+:root .qq-modal-close:hover,
+:root .favorite-server-dialog-close:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-active);
+}
+
+/* Context Menus */
+:root [data-ws-part="voice.context-menu"],
+:root [data-ws-part="voice.context-menu.move-submenu"],
+:root .member-context-menu,
+:root .member-submenu-panel {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  color: var(--skin-onyx-text);
+  padding: 6px;
+}
+
+:root .member-context-menu button,
+:root .member-submenu-panel button {
+  color: var(--skin-onyx-text-muted);
+  border-radius: var(--skin-onyx-radius-sm);
+}
+
+:root .member-context-menu button:hover,
+:root .member-submenu-panel button:hover {
+  color: var(--skin-onyx-text);
+  background: var(--skin-onyx-surface-elevated);
+}
+
+/* ==========================================================================
+   6. Persistent Workspace Connection Status (Workspace API v1)
+   ========================================================================== */
+
+:root [data-ws-part="voice.connection-status"],
+:root .workspace-connection-status {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border-hover) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+  box-shadow: var(--skin-onyx-shadow-elevated) !important;
+  color: var(--skin-onyx-text) !important;
+}
+
+:root [data-ws-part="voice.connection-status"] input {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  color: var(--skin-onyx-text) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+}
+
+:root [data-ws-part="voice.connection-status"] button {
+  background: var(--skin-onyx-primary-btn) !important;
+  color: var(--skin-onyx-primary-btn-text) !important;
+  border-radius: var(--skin-onyx-radius-sm) !important;
+  font-weight: 600 !important;
+}
+
+:root [data-ws-part="voice.connection-status"] button:hover:not(:disabled) {
+  background: var(--skin-onyx-primary-btn-hover) !important;
+}
+
+/* ==========================================================================
+   7. Demo Page Support
+   ========================================================================== */
+
+:root [data-ws-page="demo"],
+:root .demo-page {
+  background: var(--skin-onyx-bg) !important;
+  color: var(--skin-onyx-text) !important;
+}
+
+:root [data-ws-part="demo.header"],
+:root .demo-header {
+  border-bottom: 1px solid var(--skin-onyx-border);
+}
+
+:root [data-ws-part="demo.channels"],
+:root [data-ws-part="demo.actions"],
+:root [data-ws-part="demo.main"],
+:root .demo-channel-panel,
+:root .demo-actions-panel,
+:root .demo-main {
+  background: var(--skin-onyx-surface) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-lg) !important;
+  box-shadow: var(--skin-onyx-shadow-card) !important;
+}
+
+:root [data-ws-part="demo.hero"],
+:root .demo-hero {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+}
+
+:root [data-ws-part="demo.hero.title"],
+:root .demo-hero h1 {
+  color: var(--skin-onyx-text) !important;
+}
+
+:root [data-ws-part="demo.voice-card"],
+:root .demo-voice-card {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+  border-radius: var(--skin-onyx-radius-md) !important;
+}
+
+:root [data-ws-part="demo.voice-card"][data-ws-state="speaking"],
+:root .demo-voice-card.speaking {
+  border-color: var(--skin-onyx-accent) !important;
+  box-shadow: 0 0 0 1px var(--skin-onyx-accent), 0 0 12px var(--skin-onyx-accent-glow) !important;
+}
+
+:root [data-ws-part="demo.voice-card"] strong,
+:root .demo-voice-card strong {
+  color: var(--skin-onyx-text) !important;
+}
+
+:root [data-ws-part="demo.chat.tab"].active,
+:root .demo-tabs button.active {
+  background: var(--skin-onyx-surface-elevated) !important;
+  color: var(--skin-onyx-text) !important;
+}
+
+:root [data-ws-part="demo.chat.composer"],
+:root .demo-composer {
+  background: var(--skin-onyx-surface-elevated) !important;
+  border: 1px solid var(--skin-onyx-border) !important;
+}
+
+:root [data-ws-part="demo.chat.input"],
+:root .demo-composer input {
+  color: var(--skin-onyx-text) !important;
+}
+
+:root [data-ws-part="demo.chat.send"],
+:root .demo-composer button {
+  background: var(--skin-onyx-primary-btn) !important;
+  color: var(--skin-onyx-primary-btn-text) !important;
+  border-radius: var(--skin-onyx-radius-pill) !important;
+}
+
+/* ==========================================================================
+   8. Motion Preference
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  :root *,
+  :root *::before,
+  :root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
 
 
