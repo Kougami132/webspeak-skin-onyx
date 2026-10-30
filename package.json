@@ -1,0 +1,17 @@
+{
+  "name": "webspeak-skin-onyx",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OpenAI-inspired minimalist dark voice workspace skin for WebSpeak.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test --test-timeout=15000 test/skin.test.mjs"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.38",
+    "postcss-selector-parser": "^6.1.0",
+    "postcss-value-parser": "^4.2.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,82 @@
+/* ==========================================================================
+   WebSpeak Theme: Onyx (OpenAI Dark Aesthetic)
+   Package ID: community.onyx
+   Schema Version: 3 (Open Skin)
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* OpenAI Charcoal Palette */
+  --skin-onyx-bg: #171717;
+  --skin-onyx-surface: #212121;
+  --skin-onyx-surface-elevated: #2f2f2f;
+  --skin-onyx-surface-active: #383838;
+  --skin-onyx-border: rgba(255, 255, 255, 0.08);
+  --skin-onyx-border-subtle: rgba(255, 255, 255, 0.05);
+  --skin-onyx-border-hover: rgba(255, 255, 255, 0.16);
+
+  /* Typography Colors */
+  --skin-onyx-text: #ececec;
+  --skin-onyx-text-muted: #b4b4b4;
+  --skin-onyx-text-subtle: #737373;
+
+  /* OpenAI Signature Accents */
+  --skin-onyx-accent: #10a37f;
+  --skin-onyx-accent-hover: #1a7f64;
+  --skin-onyx-accent-glow: rgba(16, 163, 127, 0.28);
+  --skin-onyx-danger: #ef4444;
+  --skin-onyx-danger-bg: rgba(239, 68, 68, 0.12);
+  --skin-onyx-warning: #f59e0b;
+
+  /* Primary Button (White on Black) */
+  --skin-onyx-primary-btn: #ffffff;
+  --skin-onyx-primary-btn-hover: #e5e5e5;
+  --skin-onyx-primary-btn-text: #0d0d0d;
+
+  /* Geometry & Elevation */
+  --skin-onyx-radius-sm: 6px;
+  --skin-onyx-radius-md: 10px;
+  --skin-onyx-radius-lg: 14px;
+  --skin-onyx-radius-pill: 9999px;
+  --skin-onyx-shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --skin-onyx-shadow-elevated: 0 18px 48px rgba(0, 0, 0, 0.55);
+}
+
+:root,
+:root body,
+:root [data-ws-part="app"] {
+  background-color: var(--skin-onyx-bg) !important;
+  color: var(--skin-onyx-text) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root,
+:root * {
+  scrollbar-color: #333333 transparent;
+  scrollbar-width: thin;
+}
+
+:root *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+:root *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:root *::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: var(--skin-onyx-radius-pill);
+}
+
+:root *::-webkit-scrollbar-thumb:hover {
+  background: #484848;
+}
+
+:root :focus-visible {
+  outline: 2px solid var(--skin-onyx-accent) !important;
+  outline-offset: 2px !important;
+}
