@@ -4,25 +4,31 @@
 [![WebSpeak: >= 0.2.8](https://img.shields.io/badge/WebSpeak->=%200.2.8-10a37f.svg)](https://github.com/EchoSixHIYA/WebSpeak-client-for-TeamSpeak)
 [![Schema: v3 Open Skin](https://img.shields.io/badge/Schema-v3%20Open%20Skin-black.svg)](https://github.com/EchoSixHIYA/WebSpeak-client-for-TeamSpeak/blob/master/docs/SKIN_DEVELOPMENT.md)
 
-**Onyx** 是一款专为 [WebSpeak](https://github.com/EchoSixHIYA/WebSpeak-client-for-TeamSpeak) (TeamSpeak Web 端客户端) 打造的 **OpenAI / ChatGPT** 极简暗黑风格皮肤包。
+**Onyx** 是一款专为 [WebSpeak](https://github.com/EchoSixHIYA/WebSpeak-client-for-TeamSpeak) (TeamSpeak Web 端语音客户端) 设计的 **OpenAI / ChatGPT** 极简暗黑风格开放皮肤包 (`.wskin`)。
 
 ---
 
-## ✨ 设计特性
+## ✨ 核心特性
 
-1. **纯正 OpenAI 沉浸暗黑美学 (Onyx Dark Aesthetic)**
-   - **炭黑底色与分层**：以 `#171717` 作为沉浸基底，搭配 `#212121` 哑光舞台与侧边栏、`#2f2f2f` 悬停/输入舱及 `rgba(255,255,255,0.08)` 1px 微边框。
-   - **高辨识度主操作按钮**：主连接按钮、弹窗确认与发送按钮采用纯白背景 (`#ffffff`) + 深黑文字 (`#0d0d0d`)，呈现极致反差的高级质感。
-   - **OpenAI 翡翠绿活跃态**：麦克风说话状态环 (Speaking Ring)、在线状态、网关指示采用 OpenAI 标志性翡翠绿 (`#10a37f`)，去除多余发光噪点。
-   - **Prompt 胶囊风输入与控制坞**：聊天输入框与底部音频控制坞重塑为圆角胶囊造型，对齐 ChatGPT 底部输入框体验。
+### 1. 深度纯正的 OpenAI 沉浸暗黑美学 (Onyx Dark Aesthetic)
+- **多层级炭黑调色盘**：以 `#171717` 炭黑为画布底色与侧边栏基底，搭配 `#212121` 哑光主舞台、`#2f2f2f` 悬停容器及 `rgba(255, 255, 255, 0.08)` 精致微边框。
+- **高对比度白色主操作键**：登录连接按钮、弹窗确认及发送按钮均采用纯白背景 (`#ffffff`) 搭配深黑加粗文字 (`#0d0d0d`)，呈现极简大气的视觉反差。
+- **OpenAI 经典翡翠绿活跃态**：说话状态外环 (`outline: 3px solid #10a37f`)、网关连接状态点、在线状态点与当前频道标识线均采用清澈的 `#10a37f` 翡翠绿。
+- **ChatGPT 标志性对话流与 Prompt 胶囊**：文字聊天彻底去除臃肿的气球气泡，转为紧凑通透的阅读流；底部输入框重塑为圆角 Prompt 输入舱（14px 圆角微亮边）与纯白圆形发送小按钮。
+- **全视口撑满布局**：聊天面板与侧栏 100% 纵向贯穿到底，底部的 ChatGPT 风格 Prompt 输入框稳定吸附在聊天栏最底端，无任何悬空或断层。
 
-2. **清爽去噪与隐私保护**
-   - **彻底隐藏外部推广元素**：自动隐藏顶部 Header 栏的 GitHub 仓库 (`.github-button`)、QQ 交流群 (`.qq-button`)、Bilibili 入口 (`.bilibili-button`)、更新日志跳转 (`.changelog-button`) 与版本号徽标 (`.version-badge`)。
-   - **保留核心管理通道**：首页底部的外部推广图标已被隐藏，同时精准保留管理后台 (`/admin`) 入口。
-   - **去除花哨动画**：移除了声呐波纹、音频波形条、访客轨道旋转与立绘装饰层，回归克制专业的生产力工具本质。
+### 2. 界面净化与外部推广元素彻底隐藏
+- **抑制外部营销图标**：自动且彻底隐藏顶栏的 GitHub 仓库 (`.github-button`)、QQ 交流群 (`.qq-button`)、Bilibili 入口 (`.bilibili-button`)、更新日志跳转 (`.changelog-button`) 与版本号徽标 (`.version-badge`)。
+- **保留管理通道**：首页底部的外部推广图标已隐藏，但**精准保留并美化管理后台 (`/admin`) 入口**，方便管理员快速直达控制台。
+- **消除游戏化与科幻动效**：移除了首页声呐波纹、音频条动效、访客轨道旋转以及语音活动区大尺寸立绘，界面回归干净、克制、专注的现代生产力工具本质。
 
-3. **持久化工作区架构 (Persistent Workspace Mode)**
-   - 遵循 WebSpeak 0.2.8 工作区接口 v1 规范，断开重连或日常回访直接保留工作区与服务器导航，体验贴近现代 Web App。
+### 3. 持久化工作区支持 (Persistent Workspace Mode)
+- 遵循 WebSpeak 0.2.8 工作区接口 v1 规范，断开连接或页面刷新后依然完整保留客户端工作区、频道树与服务器导航，体验完全对齐现代 Web 客户端。
+- 断开时顶部浮现居中的轻量级重连状态胶囊，右侧“立即重连”按钮平整完整，永不截断或折行。
+
+### 4. 完美兼容用户真实头像与多语言
+- 完全放行 TeamSpeak 用户上传的自定义头像图片，确保其在舞台与列表中高清圆角渲染；无头像用户统一采用 `#2f2f2f` 炭灰底色加纯白首字母占位。
+- 100% 透传 WebSpeak 官方多语言系统（中文、英文、德文、俄文、日文），无文本断层。
 
 ---
 
@@ -31,53 +37,43 @@
 ```text
 webspeak-skin-onyx/
 ├── src/
-│   ├── manifest.json        # 皮肤元数据清单 (Schema v3 open-skin)
-│   ├── skin.css             # 完整的 OpenAI 风格定制与元素隐藏样式表
+│   ├── manifest.json        # 皮肤元数据清单 (Schema v3 open-skin, v1.3.1)
+│   ├── skin.css             # 完整的 OpenAI 样式重构与元素隐藏样式表
 │   └── assets/
-│       └── preview.png      # 皮肤预览封面图 (640x360)
+│       └── preview.png      # 皮肤预览封面图 (640x360 PNG)
 ├── scripts/
 │   ├── build.mjs            # 规范打包脚本 (生成 onyx.wskin 与更新 skin.json)
-│   └── generate-assets.mjs  # 纯原生 PNG 预览生成器
+│   └── generate-assets.mjs  # 纯原生 PNG 封面图生成器
 ├── test/
-│   └── skin.test.mjs        # 结构、校验器规范与 ZIP 完整性自动化测试
-├── onyx.wskin               # 可直接在 WebSpeak 后台导入的交付皮肤包
+│   └── skin.test.mjs        # 自动化测试 (容器、校验器规则、作用域、SHA-256)
+├── onyx.wskin               # 编译好的成品交付包 (可直接在 WebSpeak 后台导入)
 ├── skin.json                # WebSpeak GitHub 皮肤商店中央索引元数据
 └── package.json
 ```
 
 ---
 
-## 🚀 安装与使用
+## 🚀 安装方式
 
-### 方式一：WebSpeak 管理后台直接导入（推荐）
-
-1. 进入 WebSpeak 管理控制台：`https://<你的域名>/admin/skins`；
+1. 以管理员身份登录 WebSpeak 后台：`https://<你的域名>/admin/skins`；
 2. 切换至 **“实例皮肤” (Instance Skins)** 页面；
-3. 点击 **“导入皮肤包”**，选中本项目根目录下的 **`onyx.wskin`**；
-4. 导入成功后，即可在皮肤列表中将其设为实例默认皮肤，或在客户端前端直接切换选用。
-
-### 方式二：GitHub 皮肤商店分发
-
-本项目已在根目录生成合规的 `skin.json` 与标准语义化 Release 结构，可直接登记至官方 [Huddle-Up-Forge/webspeak-skins](https://github.com/Huddle-Up-Forge/webspeak-skins) 索引：
-
-```json
-{
-  "id": "community.onyx",
-  "repository": "https://github.com/<your-username>/webspeak-skin-onyx"
-}
-```
+3. 点击 **“导入皮肤包”** 按钮，选择本项目根目录下的 **`onyx.wskin`** 文件上传；
+4. 导入成功后，在皮肤列表中找到 **Onyx**，点击右侧的 **“设为默认”**（或在客户端前端通过皮肤选择器手动选用）。
 
 ---
 
 ## 🛠️ 构建与测试
 
-本项目无需繁重的构建体系，自带完备的规范自测：
+本项目采用极简的零外部依赖架构，打包与自测均通过原生 Node.js 驱动：
 
 ```bash
-# 构建 .wskin 归档并重新计算 SHA-256
+# 安装开发测试依赖 (PostCSS 静态语法分析器)
+npm install
+
+# 编译打包 .wskin 并自动计算同步更新 skin.json
 npm run build
 
-# 运行 WebSpeak 兼容性规范、CSS 校验与容器完整性测试
+# 运行 WebSpeak 兼容性规范、CSS 作用域与容器完整性自动化测试
 npm test
 ```
 
